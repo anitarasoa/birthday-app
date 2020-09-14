@@ -1,0 +1,43 @@
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+ul li {
+    list-style: none;
+}
+
+ul, li, p, div {
+    margin: 0;
+    padding: 0;
+}
+
+.delete,
+.edit {
+    background-repeat: no-repeat;
+    background-position: center;
+    text-indent: -9999px;
+    border: none;
+    background-color: transparent;
+}
+
+.edit {
+    background-image: url(./assets/edit.svg);
+}
+
+.delete {
+    background-image: url(./assets/delete.svg);
+}
+
+.edit:hover,
+.delete:hover {
+    background-color: lightblue;
+    transition: background-color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in;
+    border-radius: 50%;
+}

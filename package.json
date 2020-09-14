@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Betsimisaraka/birthday-app#readme",
   "dependencies": {
     "boostrap": "^2.0.0",
-    "date-fns": "^2.16.1"
+    "date-fns": "^2.16.1",
+    "regenerator-runtime": "^0.13.7"
   }
 }
