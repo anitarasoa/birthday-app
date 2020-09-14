@@ -1,0 +1,23 @@
+{
+  "name": "birthday-app",
+  "version": "1.0.0",
+  "description": "Hey team! So the final project here will be a birthday list.",
+  "main": "script.js",
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Betsimisaraka/birthday-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Betsimisaraka/birthday-app/issues"
+  },
+  "homepage": "https://github.com/Betsimisaraka/birthday-app#readme",
+  "dependencies": {
+    "boostrap": "^2.0.0",
+    "date-fns": "^2.16.1"
+  }
+}
