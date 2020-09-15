@@ -18,6 +18,17 @@ ul, li, p, div {
     padding: 0;
 }
 
+header {
+    text-align: center;
+}
+
+.heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-bottom: 1rem;
+}
+
 .delete,
 .edit {
     background-repeat: no-repeat;

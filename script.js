@@ -155,58 +155,58 @@ function displayDeleteBtn(idToDelete) {
     });
 }
 
-// const handleNewPeople = () => {
-//     modalInner.innerHTML =    
-//     `
-//     <form action="" class="form_submit">
-//         <fieldset>
-//             <label for="picture">Picture</label>
-//             <input type="url" id="picture" name="picture" required>
-//         </fieldset>
-//         <fieldset>
-//             <label for="lastname">Last name</label>
-//             <input type="text" id="lastname" name="lastname" required>
-//         </fieldset>
-//         <fieldset>
-//             <label for="firstname">First name</label>
-//             <input type="text" id="firstname" name="firstname" required>
-//         </fieldset>
-//         <fieldset>
-//             <label for="birthday">Days</label>
-//             <input type="date" id="birthday" name="birthday" required>
-//         </fieldset>
-//         <div class="buttons">
-//             <button type="submit" class="submitbtn">Submit</button>
-//         </div>
-//         </form>
-//     `;
-//     modalOuter.classList.add('open');
-// }
+const handleNewPeople = () => {
+    modalInner.innerHTML =    
+    `
+    <form action="" class="form_submit">
+        <fieldset>
+            <label for="picture">Picture</label>
+            <input type="url" id="picture" name="picture" required>
+        </fieldset>
+        <fieldset>
+            <label for="lastname">Last name</label>
+            <input type="text" id="lastname" name="lastname" required>
+        </fieldset>
+        <fieldset>
+            <label for="firstname">First name</label>
+            <input type="text" id="firstname" name="firstname" required>
+        </fieldset>
+        <fieldset>
+            <label for="birthday">Days</label>
+            <input type="date" id="birthday" name="birthday" required>
+        </fieldset>
+        <div class="buttons">
+            <button type="submit" class="submitbtn">Submit</button>
+        </div>
+        </form>
+    `;
+    modalOuter.classList.add('open');
+}
 
-// const addNewPeople = (e) => {
-//     e.preventDefault();
-//     const form = e.target;
-//     console.log(form);
-//     const newPeople = {
-//         id: Date.now(),
-//         picture: form.picture.value,
-//         lastName: form.lastname.value,
-//         firstName: form.firstname.value,
-//         birthday: form.birthday.value,
-//     }
-//     handlePeople.push(newPeople);
-//     console.log(handlePeople);
-//     form.reset();
-//     container.dispatchEvent(new CustomEvent('updatedLocalStorage'));
-// }
+const addNewPeople = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    console.log(form);
+    const newPeople = {
+        id: Date.now(),
+        picture: form.picture.value,
+        lastName: form.lastname.value,
+        firstName: form.firstname.value,
+        birthday: form.birthday.value,
+    }
+    handlePeople.push(newPeople);
+    console.log(handlePeople);
+    form.reset();
+    container.dispatchEvent(new CustomEvent('updatedLocalStorage'));
+}
 
-// buttonAdd.addEventListener('click', handleNewPeople);
+buttonAdd.addEventListener('click', handleNewPeople);
 container.addEventListener('updatedLocalStorage', updateLocalStorage);
 container.addEventListener('updatedLocalStorage', displayPeople);
 window.addEventListener('DOMContentLoaded', displayPeople);
 modalOuter.addEventListener('click', clickOutside);
 window.addEventListener('keydown', escapeKey);
-//window.addEventListener('submit', addNewPeople);
+window.addEventListener('submit', addNewPeople);
 window.addEventListener('click', deleteButton);
 container.addEventListener('click', editButton);
 //displayPeople();
