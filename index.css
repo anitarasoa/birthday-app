@@ -63,6 +63,7 @@ ul, li, p, div {
     left: 0;
     justify-content: center;
     align-items: center;
+    pointer-events: none;
     opacity: 0;
 }
 
