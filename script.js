@@ -1,8 +1,9 @@
-
-const listContainer = document.querySelector('.list_items');
 const buttonAdd = document.querySelector('.btn-primary');
+console.log(buttonAdd);
 const modalOuter = document.querySelector('.modal_outer');
 const modalInner = document.querySelector('.modal_inner');
+console.log(modalInner);
+const tbody = document.querySelector('tbody');
 
 function wait(ms = 0) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -15,53 +16,73 @@ async function fetchPeople() {
 
     const displayPeople = () => {
         const sortedBirthday = people.sort((a, b) => b.birthday - a.birthday);
-        const html = sortedBirthday.map((person, index) => {
-            var myDate = new Date();
-            var today = new Date(person.birthday);
-            var day = today.getDay();
-            var month = today.getMonth() + 1;
-            var year = today.getFullYear();
-            var bithdayResult = `${day} - ${month} - ${year}`;
-            var daysLeft = myDate.getFullYear() - today.getFullYear();
+        tbody.innerHTML = sortedBirthday.map((person, index) => {
+            function suffixDay(day) {
+                if (day > 3 && day < 21 ) return "th";
+                switch (day % 2) {
+                    case 1: return "st";
+                    case 2: return "nd";
+                    case 3: return "rd";
+                    default: return "th";
+                }
+            }
+            var myDate = new Date(person.birthday);
+            var today = new Date();
+            var myDateYear = myDate.getFullYear();
+            var myDateMonth = myDate.getMonth();
+            var myDateDay = myDate.getDay();
+            var bithdayResult = `${myDateYear}/${myDateMonth}/${myDateDay}`;
+            var age = today.getFullYear() - myDate.getFullYear();
+            var month = [null, "January", "February", "March", "April", "May", "June", "Jolay", "August", "Septamber", "October", "November", "Desamber"]
+            [myDate.getMonth()];
+
+            const birthdayDay = myDateDay;
+            const birthdayMonth = myDateMonth;
+            const myBirthdayThisYear = new Date(new Date().getFullYear(), myDateDay, myDateMonth);
+
+            const daysUntilBirthday = () => {
+                const addToYear = myBirthdayThisYear > Date.now() ? 0 : 1;
+                const oneDay = 24 * 60 * 60 * 1000;
+                const secondDate = new Date(new Date().getFullYear() + addToYear, birthdayMonth, birthdayDay);
+                const firstDate = new Date();
+                const days = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+                const daysOrDay = days === 1 ? 'day' : '';
+                if (days !== 365) {
+                    return `${days} ${daysOrDay}`;
+                }
+            };
+
             return `
-            <li data-id="${person.id}" class="container ${index % 2 ? "even" : " "}">
-                <div class="row">
-                    <div class="col">
-                        <img class="rounded-circle" src="${person.picture}" alt=""/>
-                    </div>
-                    <div class="col-4 align-self-center">
-                        <h3>${person.lastName} ${person.firstName}</h3>
-                        <p>${bithdayResult}</p>
-                    </div>
-                    <div class="col align-self-center">
-                        <p> ${daysLeft} <br> Days</p>
-                    </div>
-                    <div class="col align-self-center">
-                        <button class="edit" value="${person.id}"> Edit</button>
-                    </div>  
-                    <div class="col align-self-center">
-                        <button class="delete" value="${person.id}"> Delete</button>
-                    </div> 
-                </div>
-            </li>
+            <tr data-id="${person.id}" class="${index % 2 ? 'even' : ''} tr_container">
+                <td><img class="picture" src="${person.picture}" alt="${person.firstName + ' ' + person.lastName}"/></td>
+                <td class="lastname">${person.lastName}</td>
+                <td>${person.firstName}</td>
+                <td>${bithdayResult}</td>
+                <td>Turn ${age} on ${month} ${myDateDay}<sup>${suffixDay(myDateDay)}</sup></td>
+                <td>${daysUntilBirthday()} Days</td>
+                <td>
+                    <button class="edit" value="${person.id}"> Edit</button>
+                </td>
+                <td>
+                    <button class="delete" value="${person.id}"> Delete</button>
+                </td>
+            </tr>
             `;
         })
         .join('');
-        listContainer.innerHTML = html;
     }
 
     async function destroyPopup(popup) {
         popup.classList.remove('open');
-        await wait(1000);
+        await wait(500);
         popup.remove();
         //remove it from the javascript memory
         popup = null;
     };    
 
    function editandDeleteButtons(e) {
-       console.log(e.target);
         if (e.target.closest('button.edit')) {
-            const closer = e.target.closest('li');
+            const closer = e.target.closest('.tr_container');
             const editBtn = closer.querySelector('button.edit');
             const id = editBtn.value;
             displayEditBtn(id);
@@ -73,35 +94,37 @@ async function fetchPeople() {
         }
     }
    function displayEditBtn(idToEdit) {
-        const findPeople = people.find(people => people.id === idToEdit);
-        return new Promise(async function(resolve) {
+        const findPeople = people.find(people => people.id == idToEdit);
+            var myDate = new Date(findPeople.birthday);
+            var myDateYear = myDate.getFullYear();
+            var myDateMonth = myDate.getMonth();
+            var myDateDay = myDate.getDay();
+            var bithdayResult = `${myDateYear}/${myDateMonth}/${myDateDay}`;
 			// First we need to create a popp with all the fields in it
 			const popup = document.createElement('form');
-			popup.classList.add('popup');
+            popup.classList.add('popup');
 			popup.insertAdjacentHTML('afterbegin', 
             `
-                <form action="" class="form_submit">
                 <fieldset>
-                    <label for="picture">Picture</label>
-                    <input type="url" id="picture" name="picture" value="${findPeople.picture}" required>
+                    <label for="pictures">Picture</label>
+                    <input type="url" id="pictures" name="pictures" value="${findPeople.picture}" required>
                 </fieldset>
                 <fieldset>
-                    <label for="lastname">Last name</label>
-                    <input type="text" id="lastname" name="lastname" value="${findPeople.lastName}" required>
+                    <label for="lastName">Last name</label>
+                    <input type="text" id="lastName" name="lastName" value="${findPeople.lastName}" required>
                 </fieldset>
                 <fieldset>
-                    <label for="firstname">First name</label>
-                    <input type="text" id="firstname" name="firstname" value="${findPeople.firstName}" required>
+                    <label for="firstName">First name</label>
+                    <input type="text" id="firstName" name="firstName" value="${findPeople.firstName}" required>
                 </fieldset>
                 <fieldset>
-                    <label for="birthday">Days</label>
-                    <input type="number" id="birthday" name="birthday" value="${findPeople.birthday}" required>
+                    <label for="birthDay">Days</label>
+                    <input type="text" id="birthDay" name="birthDay" value="${bithdayResult}" required>
                 </fieldset>
                 <div class="buttons">
                     <button type="submit" class="submitbtn">Submit</button>
                     <button type="button" class="cancelEdit">Cancel</button>
                 </div>
-                </form>
             `);
 
             window.addEventListener('click', e => {
@@ -111,36 +134,33 @@ async function fetchPeople() {
             })
 
             popup.addEventListener('submit', (e) => {
-                console.log(e.target);
+                console.log(popup);
                 e.preventDefault();
                 
-                findPeople.lastName = e.target.lastname.value,
-                findPeople.firstName = e.target.firstname.value,
-                findPeople.picture = e.target.picture.value,
-                findPeople.birthday = e.target.birthday.value,
+                findPeople.lastName = popup.lastName.value,
+                findPeople.firstName = popup.firstName.value,
+                findPeople.picture = popup.pictures.value,
+                findPeople.birthday = popup.birthDay.value,
 
-                displayPeople(findPeople);
+                displayPeople();
                 destroyPopup(popup);
-
+                tbody.dispatchEvent(new CustomEvent('updatedTheList'));  
             }, { once: true });
 
             document.body.appendChild(popup);
             console.log(popup);
-            await wait(500);
             popup.classList.add('open');
-        });
     };
 
     function displayDeleteBtn(idToDelete) {
         console.log(idToDelete);
-        const lastName = document.querySelector('h3').textContent;
+        const lastName = document.querySelector('.lastname').textContent;
         return new Promise(async function(resolve) {
 			// First we need to create a popp with all the fields in it
 			const popup = document.createElement('form');
 			popup.classList.add('popup');
 			popup.insertAdjacentHTML('afterbegin', 
     
-            // First we need to create a popp with all the fields in it   
             `	
                 <h3>Are you sure that you want to delete this partener</h3>
                 <p class="lastname">${lastName}</p>
@@ -158,20 +178,94 @@ async function fetchPeople() {
                 }
                 const yesBtn = e.target.closest('button.yes');
                 if (yesBtn) {
-                    const removeLi = people.filter(people => people.id !== idToDelete);
-                   const btndelete = removeLi;
-                   people = btndelete;
-                   displayPeople(btndelete);
-                   destroyPopup(popup);
+                    const removeLi = people.filter(people => people.id != idToDelete);
+                    const btndelete = removeLi;
+                    people = btndelete;
+                    displayPeople(btndelete);
+                    tbody.dispatchEvent(new CustomEvent('updatedTheList'));
+                    destroyPopup(popup);
                 }
             });
             document.body.appendChild(popup);
             popup.classList.add('open');
         });
     }
+
+    const closeModal = () => {
+        modalOuter.classList.remove('open');
+    }
+
+    const handleNewPeople = () => {
+        modalInner.innerHTML =    
+        `
+        <form action="" class="form_submit">
+            <fieldset>
+                <label for="picture">Picture</label>
+                <input type="url" id="picture" name="picture" required>
+            </fieldset>
+            <fieldset>
+                <label for="lastname">Last name</label>
+                <input type="text" id="lastname" name="lastname" required>
+            </fieldset>
+            <fieldset>
+                <label for="firstname">First name</label>
+                <input type="text" id="firstname" name="firstname" required>
+            </fieldset>
+            <fieldset>
+                <label for="birthday">Days</label>
+                <input type="date" id="birthday" name="birthday" required>
+            </fieldset>
+            <div class="buttons">
+                <button type="submit" class="submit">Submit</button>
+            </div>
+            </form>
+        `;
+        modalOuter.classList.add('open');
+    }
     
-    listContainer.addEventListener('click', editandDeleteButtons);
+    const addNewPeople = e => {
+        e.preventDefault();
+        const form = e.target;
+        console.log(form);
+        const newPeople = {
+            id: Date.now(),
+            picture: form.picture.value,
+            lastName: form.lastname.value,
+            firstName: form.firstname.value,
+            birthday: form.birthday.value,
+        }
+        people.push(newPeople);
+        console.log(people);
+        form.reset();
+        tbody.dispatchEvent(new CustomEvent('updatedTheList'));
+        closeModal();
+        console.log(newPeople);
+    }
+
+    const initialStorage = () => {
+        const stringFromLs = localStorage.getItem('people');
+        const lsItems = JSON.parse(stringFromLs);
+        console.log(lsItems);
+        if (lsItems) {
+            people = lsItems;
+            tbody.dispatchEvent(new CustomEvent('updatedTheList'));
+        } else {
+            people = [];
+        }
+    };
+    
+//     // we want to update the local storage each time we update, delete or add an attirbute
+    const updateLocalStorage = () => {
+        localStorage.setItem('people', JSON.stringify(people));
+    };
+    
+    tbody.addEventListener('updatedTheList', displayPeople);
+    tbody.addEventListener('updatedTheList', updateLocalStorage);
+    buttonAdd.addEventListener('click', handleNewPeople);
+    modalInner.addEventListener('submit', addNewPeople);
+    tbody.addEventListener('click', editandDeleteButtons);
     displayPeople();
+    initialStorage();
 }
 
 fetchPeople();
