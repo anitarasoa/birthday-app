@@ -16,11 +16,6 @@ table {
     margin: 2rem;
 }
 
-td svg {
-	height: 25px;
-	color: #ff8e3c;
-}
-
 td button {
 	background: none;
 	border: none;
@@ -77,7 +72,8 @@ tr.even {
 .edit {
     background-repeat: no-repeat;
     background-position: center;
-    /* background-size: 1rem; */
+    background-size: 2rem;
+    height: 30px;
     text-indent: -9999px;
     border: none;
     background-color: transparent;
@@ -129,7 +125,7 @@ tr.even {
 
 .modal_inner {
     padding: 2rem;
-    width: 400px;
+    width: 300px;
     height: 400px;
     border-radius: 5px;
     background: white;
@@ -144,15 +140,33 @@ tr.even {
 fieldset {
     display: flex;
     flex-direction: column;
+    border: transparent;
 }
 
+fieldset input {
+    height: 2rem;
+    width: 100%;
+}
+
+.btn-add,
+.submit,
+.cancelDelete,
+.yes,
+.submitbtn,
+.cancelEdit {
+    background-color: green;
+	color: #eff0f3;
+	text-transform: uppercase;
+	padding: 0.5rem;
+	border-radius: 10px;
+	border: 0;
+}
 
 .popup {
-	background: white;
+	background: cyan;
 	position: fixed;
 	height: 400px;
 	width: 400px;
-	/* transition: all 0.25s; */
 	top: 0;
 	transform: translate(50%, -100%);
 	display: grid;
@@ -163,7 +177,7 @@ fieldset {
 	opacity: var(--opacity);
 }
 
-.popup .submitbtn,
+/* .popup .submitbtn,
 .popup .cancelEdit,
 .container .yes,
 .container .cancelDelete {
@@ -173,7 +187,7 @@ fieldset {
 	padding: 0.5rem;
 	border-radius: 10px;
 	border: 0;
-}
+} */
 
 .popup.open {
 	--opacity: 1;

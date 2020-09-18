@@ -1,4 +1,4 @@
-const buttonAdd = document.querySelector('.btn-primary');
+const buttonAdd = document.querySelector('.btn-add');
 console.log(buttonAdd);
 const modalOuter = document.querySelector('.modal_outer');
 const modalInner = document.querySelector('.modal_inner');
@@ -19,7 +19,7 @@ async function fetchPeople() {
         tbody.innerHTML = sortedBirthday.map((person, index) => {
             function suffixDay(day) {
                 if (day > 3 && day < 21 ) return "th";
-                switch (day % 2) {
+                switch (day % 10) {
                     case 1: return "st";
                     case 2: return "nd";
                     case 3: return "rd";
@@ -33,24 +33,17 @@ async function fetchPeople() {
             var myDateDay = myDate.getDay();
             var bithdayResult = `${myDateYear}/${myDateMonth}/${myDateDay}`;
             var age = today.getFullYear() - myDate.getFullYear();
-            var month = [null, "January", "February", "March", "April", "May", "June", "Jolay", "August", "Septamber", "October", "November", "Desamber"]
-            [myDate.getMonth()];
+            var month = ["January", "February", "March", "April", "May", "June", "Jolay", "August", "Septamber", "October", "November", "Desamber"]
+            [myDateMonth - 1];
 
-            const birthdayDay = myDateDay;
-            const birthdayMonth = myDateMonth;
-            const myBirthdayThisYear = new Date(new Date().getFullYear(), myDateDay, myDateMonth);
-
-            const daysUntilBirthday = () => {
-                const addToYear = myBirthdayThisYear > Date.now() ? 0 : 1;
-                const oneDay = 24 * 60 * 60 * 1000;
-                const secondDate = new Date(new Date().getFullYear() + addToYear, birthdayMonth, birthdayDay);
-                const firstDate = new Date();
-                const days = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-                const daysOrDay = days === 1 ? 'day' : '';
-                if (days !== 365) {
-                    return `${days} ${daysOrDay}`;
-                }
-            };
+            var myBirthday = [myDateDay, myDateMonth];
+            var myBirthdayDay = new Date(today.getFullYear(), myBirthday[1] - 1, myBirthday[0]);
+            if (today.getTime() > myBirthdayDay.getTime()) {
+                myBirthdayDay.setFullYear(myBirthdayDay.getFullYear() + 1);
+            }
+            var different = myBirthdayDay.getTime() - today.getTime();
+            var days = Math.floor(different / (1000 * 60 * 60 * 24));
+            console.log(days+ "is your birthday");
 
             return `
             <tr data-id="${person.id}" class="${index % 2 ? 'even' : ''} tr_container">
@@ -59,7 +52,7 @@ async function fetchPeople() {
                 <td>${person.firstName}</td>
                 <td>${bithdayResult}</td>
                 <td>Turn ${age} on ${month} ${myDateDay}<sup>${suffixDay(myDateDay)}</sup></td>
-                <td>${daysUntilBirthday()} Days</td>
+                <td>${days} Days</td>
                 <td>
                     <button class="edit" value="${person.id}"> Edit</button>
                 </td>
@@ -144,7 +137,7 @@ async function fetchPeople() {
 
                 displayPeople();
                 destroyPopup(popup);
-                tbody.dispatchEvent(new CustomEvent('updatedTheList'));  
+                tbody.dispatchEvent(new CustomEvent('updatedTheList'));
             }, { once: true });
 
             document.body.appendChild(popup);
