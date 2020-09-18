@@ -1,8 +1,6 @@
 const buttonAdd = document.querySelector('.btn-add');
-console.log(buttonAdd);
 const modalOuter = document.querySelector('.modal_outer');
 const modalInner = document.querySelector('.modal_inner');
-console.log(modalInner);
 const tbody = document.querySelector('tbody');
 
 function wait(ms = 0) {
@@ -26,24 +24,24 @@ async function fetchPeople() {
                     default: return "th";
                 }
             }
-            var myDate = new Date(person.birthday);
-            var today = new Date();
-            var myDateYear = myDate.getFullYear();
-            var myDateMonth = myDate.getMonth();
-            var myDateDay = myDate.getDay();
-            var bithdayResult = `${myDateYear}/${myDateMonth}/${myDateDay}`;
-            var age = today.getFullYear() - myDate.getFullYear();
-            var month = ["January", "February", "March", "April", "May", "June", "Jolay", "August", "Septamber", "October", "November", "Desamber"]
+            let myDate = new Date(person.birthday);
+            let today = new Date();
+            let myDateYear = myDate.getFullYear();
+            let myDateMonth = myDate.getMonth() + 1;
+            let myDateDay = myDate.getDay();
+            let bithdayResult = `${myDateYear}/${myDateMonth}/${myDateDay}`;
+            let age = today.getFullYear() - myDateYear;
+            let month = ["January", "February", "March", "April", "May", "June", "Jolay", "August", "Septamber", "October", "November", "Desamber"]
             [myDateMonth - 1];
 
-            var myBirthday = [myDateDay, myDateMonth];
-            var myBirthdayDay = new Date(today.getFullYear(), myBirthday[1] - 1, myBirthday[0]);
+            let myBirthday = [myDateDay, myDateMonth];
+            let myBirthdayDay = new Date(today.getFullYear(), myBirthday[1] - 1, myBirthday[0]);
+
             if (today.getTime() > myBirthdayDay.getTime()) {
                 myBirthdayDay.setFullYear(myBirthdayDay.getFullYear() + 1);
             }
-            var different = myBirthdayDay.getTime() - today.getTime();
-            var days = Math.floor(different / (1000 * 60 * 60 * 24));
-            console.log(days+ "is your birthday");
+            let different = myBirthdayDay.getTime() - today.getTime();
+            let days = Math.floor(different / (1000 * 60 * 60 * 24));
 
             return `
             <tr data-id="${person.id}" class="${index % 2 ? 'even' : ''} tr_container">
@@ -90,7 +88,7 @@ async function fetchPeople() {
         const findPeople = people.find(people => people.id == idToEdit);
             var myDate = new Date(findPeople.birthday);
             var myDateYear = myDate.getFullYear();
-            var myDateMonth = myDate.getMonth();
+            var myDateMonth = myDate.getMonth() + 1;
             var myDateDay = myDate.getDay();
             var bithdayResult = `${myDateYear}/${myDateMonth}/${myDateDay}`;
 			// First we need to create a popp with all the fields in it
@@ -147,27 +145,25 @@ async function fetchPeople() {
 
     function displayDeleteBtn(idToDelete) {
         console.log(idToDelete);
-        const lastName = document.querySelector('.lastname').textContent;
         return new Promise(async function(resolve) {
 			// First we need to create a popp with all the fields in it
-			const popup = document.createElement('form');
-			popup.classList.add('popup');
-			popup.insertAdjacentHTML('afterbegin', 
+			const delPopup = document.createElement('div');
+			delPopup.classList.add('delPopup');
+			delPopup.insertAdjacentHTML('afterbegin', 
     
             `	
-                <h3>Are you sure that you want to delete this partener</h3>
-                <p class="lastname">${lastName}</p>
+                <h3>Are you sure that you want to delete this partener ?</h3>
                 <div class="deletebtns">
                     <button type="button" class="yes">yes</button>
                     <button type="button" class="cancelDelete">Cancel</button>
                 </div>
             `);
-            popup.classList.add('open');
+            delPopup.classList.add('open');
 
             window.addEventListener('click', e => {
                 const cancelBtn = e.target.closest('.cancelDelete');
                 if (cancelBtn) {
-                    destroyPopup(popup);
+                    destroyPopup(delPopup);
                 }
                 const yesBtn = e.target.closest('button.yes');
                 if (yesBtn) {
@@ -176,11 +172,12 @@ async function fetchPeople() {
                     people = btndelete;
                     displayPeople(btndelete);
                     tbody.dispatchEvent(new CustomEvent('updatedTheList'));
-                    destroyPopup(popup);
+                    destroyPopup(delPopup);
                 }
             });
-            document.body.appendChild(popup);
-            popup.classList.add('open');
+           
+            document.body.appendChild(delPopup);
+            delPopup.classList.add('open');
         });
     }
 
@@ -188,6 +185,20 @@ async function fetchPeople() {
         modalOuter.classList.remove('open');
     }
 
+    const handleClickOutside = (e) => {
+        const clickOutside = !e.target.closest('.modal_inner');
+        if (clickOutside) {
+            closeModal();
+        }
+    }
+
+    const handleEscapeKey = e => {
+        if (e.key = "escape") {
+            closeModal();
+        }
+    }
+
+    // To create the html for the new pople
     const handleNewPeople = () => {
         modalInner.innerHTML =    
         `
@@ -216,6 +227,7 @@ async function fetchPeople() {
         modalOuter.classList.add('open');
     }
     
+    // Add new person to the list
     const addNewPeople = e => {
         e.preventDefault();
         const form = e.target;
@@ -235,6 +247,7 @@ async function fetchPeople() {
         console.log(newPeople);
     }
 
+    // To get the items from the local storage
     const initialStorage = () => {
         const stringFromLs = localStorage.getItem('people');
         const lsItems = JSON.parse(stringFromLs);
@@ -247,15 +260,18 @@ async function fetchPeople() {
         }
     };
     
-//     // we want to update the local storage each time we update, delete or add an attirbute
+    // To set the item in the local storage.
     const updateLocalStorage = () => {
         localStorage.setItem('people', JSON.stringify(people));
     };
     
+    //************* EVENT LISTENER **********
     tbody.addEventListener('updatedTheList', displayPeople);
     tbody.addEventListener('updatedTheList', updateLocalStorage);
     buttonAdd.addEventListener('click', handleNewPeople);
     modalInner.addEventListener('submit', addNewPeople);
+    modalOuter.addEventListener('click', handleClickOutside);
+    window.addEventListener('keydown', handleEscapeKey);
     tbody.addEventListener('click', editandDeleteButtons);
     displayPeople();
     initialStorage();
