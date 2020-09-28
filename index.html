@@ -9,7 +9,7 @@
 </head>
 
 <body>
-	<header>
+	<header class="bg_heading">
 		<h1>Birthday app 🎂 </h1>
 	</header>
 	<main>
@@ -17,32 +17,56 @@
 			<header>
 				<h2>List of people</h2>
 			</header>
+			<form action="/" class="form_filter">
+				<fieldset class="filter">
+					<label for="search">Seach by Name</label>
+					<input type="text" id="search_name">
+				</fieldset>
+				<fieldset class="filter">
+					<label for="select">Month: </label>
+					<select name="month" id="month_birthday" class="month">
+						<option value="">Select month</option>
+						<option value="january">January</option>
+						<option value="february">February</option>
+						<option value="march">March</option>
+						<option value="april">April</option>
+						<option value="may">May</option>
+						<option value="june">June</option>
+						<option value="jolay">Jolay</option>
+						<option value="august">August</option>
+						<option value="septamber">Septamber</option>
+						<option value="october">October</option>
+						<option value="november">November</option>
+						<option value="desamber">Desamber</option>
+					</select>
+				</fieldset>
+			</form>
 			<button type="button" class="btn-add">Add new People</button>
 		</div>
 		<section>
-		<table>
-			<thead>
-				<tr>
-					<th>Avatar</th>
-					<th>Lastname</th>
-					<th>Firstname</th>
-					<th>Birthdate</th>
-					<th>Birthday</th>
-					<th>date computations</th>
-					<th>Edit</th>
-					<th>Delete</th>
-				</tr>
-			</thead>
-			<tbody class="table_body">
+			<table>
+				<thead>
+					<tr>
+						<th>Avatar</th>
+						<th>Lastname</th>
+						<th>Firstname</th>
+						<th>Birthdate</th>
+						<th>Birthday</th>
+						<th>date computations</th>
+						<th>Edit</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody class="table_body">
 
-			</tbody>
-		</table>
-		<div class="modal_outer">
-			<div class="modal_inner">
+				</tbody>
+			</table>
+			<div class="modal_outer">
+				<div class="modal_inner">
 
+				</div>
 			</div>
-		</div>
-	</section>
+		</section>
 	</main>
 	<script src="script.js"></script>
 </body>

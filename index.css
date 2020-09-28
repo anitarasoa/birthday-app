@@ -8,10 +8,11 @@ body {
     background-color: lightblue;
 }
 
-header {
+.bg_heading {
     text-align: center;
 }
 
+.heading,
 table {
     margin: 2rem;
 }
@@ -64,6 +65,24 @@ tr.even {
 .heading {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+}
+
+.heading h2 {
+    margin: 0;
+}
+
+.filter {
+    padding: 0;
+    margin: 0;
+}
+
+.filter + .filter {
+    margin-left: 4rem;
+}
+
+.form_filter {
+    display: flex;
     justify-content: space-around;
 }
 
@@ -137,6 +156,7 @@ fieldset {
     border: transparent;
 }
 
+.month,
 fieldset input {
     height: 2rem;
     width: 100%;

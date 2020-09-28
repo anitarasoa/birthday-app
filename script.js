@@ -2,19 +2,38 @@ const buttonAdd = document.querySelector('.btn-add');
 const modalOuter = document.querySelector('.modal_outer');
 const modalInner = document.querySelector('.modal_inner');
 const tbody = document.querySelector('tbody');
+const filterNameInput = document.querySelector("#search_name");
+const filterMonthBirthday = document.querySelector("#month_birthday");
 
 function wait(ms = 0) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+//Fetch the data from the people.json files
 async function fetchPeople() {
     const response = await fetch("./people.json");
     const data = await response.json();
     let people = data;
 
-    const displayPeople = () => {
-        const sortedBirthday = people.sort((a, b) => b.birthday - a.birthday);
-        tbody.innerHTML = sortedBirthday.map((person, index) => {
+    const filter = (e) => {
+        displayPeople(e, filterNameInput.value);
+    }
+    //loop through the data
+    const displayPeople = (e, filterName) => {
+        // const sortedBirthday = people.sort((a, b) => b.birthday - a.birthday);
+        if (filterName) {
+           people =people.filter(person => {
+                let lowerCaseTitle = person.lastName.toLowerCase();
+                let lowerCaseFilter = filterName.toLowerCase();
+                if (lowerCaseTitle.includes(lowerCaseFilter)) {
+                    return true;
+                } else { 
+                    return false;
+                }
+            })
+        }
+       
+        tbody.innerHTML = people.map((person, index) => {
             function suffixDay(day) {
                 if (day > 3 && day < 21 ) return "th";
                 switch (day % 10) {
@@ -43,6 +62,7 @@ async function fetchPeople() {
             let different = myBirthdayDay.getTime() - today.getTime();
             let days = Math.floor(different / (1000 * 60 * 60 * 24));
 
+            //Create html for the data and put into dom.
             return `
             <tr data-id="${person.id}" class="${index % 2 ? 'even' : ''} tr_container">
                 <td><img class="picture" src="${person.picture}" alt="${person.firstName + ' ' + person.lastName}"/></td>
@@ -63,6 +83,7 @@ async function fetchPeople() {
         .join('');
     }
 
+    //Destroy popup when submit or cancel
     async function destroyPopup(popup) {
         popup.classList.remove('open');
         await wait(500);
@@ -84,6 +105,8 @@ async function fetchPeople() {
             displayDeleteBtn(id);
         }
     }
+
+    //Html for the edit button
    function displayEditBtn(idToEdit) {
         const findPeople = people.find(people => people.id == idToEdit);
             var myDate = new Date(findPeople.birthday);
@@ -143,6 +166,7 @@ async function fetchPeople() {
             popup.classList.add('open');
     };
 
+    //Html for the delete button
     function displayDeleteBtn(idToDelete) {
         console.log(idToDelete);
         return new Promise(async function(resolve) {
@@ -181,10 +205,12 @@ async function fetchPeople() {
         });
     }
 
+    //Close modal 
     const closeModal = () => {
         modalOuter.classList.remove('open');
     }
 
+    //Close modal when you click outside
     const handleClickOutside = (e) => {
         const clickOutside = !e.target.closest('.modal_inner');
         if (clickOutside) {
@@ -192,13 +218,15 @@ async function fetchPeople() {
         }
     }
 
-    const handleEscapeKey = e => {
-        if (e.key = "escape") {
-            closeModal();
-        }
-    }
+    // const handleEscapeKey = e => {
+    //     if (e.key = "escape") {
+    //         closeModal();
+    //     }
+    // }
 
     // To create the html for the new pople
+    
+    //Create a form for the modal to add new person in the list
     const handleNewPeople = () => {
         modalInner.innerHTML =    
         `
@@ -266,12 +294,14 @@ async function fetchPeople() {
     };
     
     //************* EVENT LISTENER **********
+    filterNameInput.addEventListener('keyup', filter);
+    filterMonthBirthday.addEventListener('change', filter);
     tbody.addEventListener('updatedTheList', displayPeople);
     tbody.addEventListener('updatedTheList', updateLocalStorage);
     buttonAdd.addEventListener('click', handleNewPeople);
     modalInner.addEventListener('submit', addNewPeople);
     modalOuter.addEventListener('click', handleClickOutside);
-    window.addEventListener('keydown', handleEscapeKey);
+    //window.addEventListener('keyup', handleEscapeKey);
     tbody.addEventListener('click', editandDeleteButtons);
     displayPeople();
     initialStorage();
