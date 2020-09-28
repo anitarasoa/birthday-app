@@ -1,23 +1,10 @@
-const buttonAdd = document.querySelector('.btn-add');
-const modalOuter = document.querySelector('.modal_outer');
-const modalInner = document.querySelector('.modal_inner');
-const tbody = document.querySelector('tbody');
-const filterNameInput = document.querySelector("#search_name");
-// const filterMonthBirthday = document.querySelector("#month_birthday");
-const filterForm = document.querySelector('.form_filter');
-const resetBtn = document.querySelector('.reset_filter');
 
-function wait(ms = 0) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-const resetFilters = e => {
-    filterForm.reset();
-    fetchPeople();
-};
+import { buttonAdd, modalOuter, modalInner, tbody, filterNameInput, resetBtn } from "./element.js";
+import { closeModal, handleClickOutside, resetFilters, destroyPopup } from './utils.js';
+import { handleNewPeople } from './handler.js';
 
 //Fetch the data from the people.json files
-async function fetchPeople() {
+export async function fetchPeople() {
     const response = await fetch("./people.json");
     const data = await response.json();
     let people = data;
@@ -90,16 +77,7 @@ async function fetchPeople() {
             `;
         })
         .join('');
-    }
-
-    //Destroy popup when submit or cancel
-    async function destroyPopup(popup) {
-        popup.classList.remove('open');
-        await wait(500);
-        popup.remove();
-        //remove it from the javascript memory
-        popup = null;
-    };    
+    }    
 
    function editandDeleteButtons(e) {
         if (e.target.closest('button.edit')) {
@@ -116,7 +94,7 @@ async function fetchPeople() {
     }
 
     //Html for the edit button
-   function displayEditBtn(idToEdit) {
+    function displayEditBtn(idToEdit) {
         const findPeople = people.find(people => people.id == idToEdit);
         console.log(findPeople);
             var myDate = new Date(findPeople.birthday);
@@ -214,50 +192,6 @@ async function fetchPeople() {
             delPopup.classList.add('open');
         });
     }
-
-    //Close modal 
-    const closeModal = () => {
-        modalOuter.classList.remove('open');
-    }
-
-    //Close modal when you click outside
-    const handleClickOutside = (e) => {
-        const clickOutside = !e.target.closest('.modal_inner');
-        if (clickOutside) {
-            closeModal();
-        }
-    }
-
-    // To create the html for the new pople
-    
-    //Create a form for the modal to add new person in the list
-    const handleNewPeople = () => {
-        modalInner.innerHTML =    
-        `
-        <form action="" class="form_submit">
-            <fieldset>
-                <label for="picture">Picture</label>
-                <input type="url" id="picture" name="picture" required>
-            </fieldset>
-            <fieldset>
-                <label for="lastname">Last name</label>
-                <input type="text" id="lastname" name="lastname" required>
-            </fieldset>
-            <fieldset>
-                <label for="firstname">First name</label>
-                <input type="text" id="firstname" name="firstname" required>
-            </fieldset>
-            <fieldset>
-                <label for="birthday">Days</label>
-                <input type="date" id="birthday" name="birthday" required>
-            </fieldset>
-            <div class="buttons">
-                <button type="submit" class="submit">Submit</button>
-            </div>
-            </form>
-        `;
-        modalOuter.classList.add('open');
-    }
     
     // Add new person to the list
     const addNewPeople = e => {
@@ -308,7 +242,6 @@ async function fetchPeople() {
     modalOuter.addEventListener('click', handleClickOutside);
     // window.addEventListener('keyup', handleEscapeKey);
     tbody.addEventListener('click', editandDeleteButtons);
-    displayPeople();
     initialStorage();
 }
 
