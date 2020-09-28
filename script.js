@@ -3,21 +3,30 @@ const modalOuter = document.querySelector('.modal_outer');
 const modalInner = document.querySelector('.modal_inner');
 const tbody = document.querySelector('tbody');
 const filterNameInput = document.querySelector("#search_name");
-const filterMonthBirthday = document.querySelector("#month_birthday");
+// const filterMonthBirthday = document.querySelector("#month_birthday");
+const filterForm = document.querySelector('.form_filter');
+const resetBtn = document.querySelector('.reset_filter');
 
 function wait(ms = 0) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+const resetFilters = e => {
+    filterForm.reset();
+    fetchPeople();
+};
 
 //Fetch the data from the people.json files
 async function fetchPeople() {
     const response = await fetch("./people.json");
     const data = await response.json();
     let people = data;
+    console.log(people);
 
     const filter = (e) => {
         displayPeople(e, filterNameInput.value);
     }
+
     //loop through the data
     const displayPeople = (e, filterName) => {
         // const sortedBirthday = people.sort((a, b) => b.birthday - a.birthday);
@@ -109,6 +118,7 @@ async function fetchPeople() {
     //Html for the edit button
    function displayEditBtn(idToEdit) {
         const findPeople = people.find(people => people.id == idToEdit);
+        console.log(findPeople);
             var myDate = new Date(findPeople.birthday);
             var myDateYear = myDate.getFullYear();
             var myDateMonth = myDate.getMonth() + 1;
@@ -218,12 +228,6 @@ async function fetchPeople() {
         }
     }
 
-    // const handleEscapeKey = e => {
-    //     if (e.key = "escape") {
-    //         closeModal();
-    //     }
-    // }
-
     // To create the html for the new pople
     
     //Create a form for the modal to add new person in the list
@@ -275,7 +279,7 @@ async function fetchPeople() {
         console.log(newPeople);
     }
 
-    // To get the items from the local storage
+    //To get the items from the local storage
     const initialStorage = () => {
         const stringFromLs = localStorage.getItem('people');
         const lsItems = JSON.parse(stringFromLs);
@@ -294,14 +298,15 @@ async function fetchPeople() {
     };
     
     //************* EVENT LISTENER **********
+    resetBtn.addEventListener('click', resetFilters);
     filterNameInput.addEventListener('keyup', filter);
-    filterMonthBirthday.addEventListener('change', filter);
+    // filterMonthBirthday.addEventListener('change', filter);
     tbody.addEventListener('updatedTheList', displayPeople);
     tbody.addEventListener('updatedTheList', updateLocalStorage);
     buttonAdd.addEventListener('click', handleNewPeople);
     modalInner.addEventListener('submit', addNewPeople);
     modalOuter.addEventListener('click', handleClickOutside);
-    //window.addEventListener('keyup', handleEscapeKey);
+    // window.addEventListener('keyup', handleEscapeKey);
     tbody.addEventListener('click', editandDeleteButtons);
     displayPeople();
     initialStorage();

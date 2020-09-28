@@ -72,9 +72,8 @@ tr.even {
     margin: 0;
 }
 
-.filter {
-    padding: 0;
-    margin: 0;
+.heading header {
+    align-self: flex-end;
 }
 
 .filter + .filter {
@@ -84,6 +83,18 @@ tr.even {
 .form_filter {
     display: flex;
     justify-content: space-around;
+}
+
+.filter,
+.reset_field {
+    padding: 0;
+    margin: 0;
+    align-self: flex-end;
+}
+
+.reset_filter {
+    margin-left: 2rem;
+    padding: 0.5rem;
 }
 
 .delete,
