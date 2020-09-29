@@ -1,24 +1,28 @@
 
-import { buttonAdd, modalOuter, modalInner, tbody, filterNameInput, resetBtn } from "./element.js";
-import { closeModal, handleClickOutside, resetFilters, destroyPopup } from './utils.js';
+import { buttonAdd, modalOuter, modalInner, tbody, filterNameInput, filterMonthBirthday, resetBtn } from "./element.js";
+import { closeModal, handleClickOutside, resetFilters, destroyPopup, handleEscapeKey } from './utils.js';
 import { handleNewPeople } from './handler.js';
 
+let people = [];
 //Fetch the data from the people.json files
 export async function fetchPeople() {
     const response = await fetch("./people.json");
     const data = await response.json();
-    let people = data;
-    console.log(people);
+    people = data;
 
     const filter = (e) => {
-        displayPeople(e, filterNameInput.value);
+        displayPeople(e, filterNameInput.value, filterMonthBirthday.value);
     }
 
     //loop through the data
-    const displayPeople = (e, filterName) => {
-        // const sortedBirthday = people.sort((a, b) => b.birthday - a.birthday);
+    const displayPeople = (e, filterName, filterMonth) => {
+        let sortedBirthday = people.sort((a, b) => {
+            const dateA = new Date(a.birthday);
+            const dateB = new Date(b.birthday);
+            return dateA.getTime() - dateB.getTime();
+          });
         if (filterName) {
-           people =people.filter(person => {
+           sortedBirthday = sortedBirthday.filter(person => {
                 let lowerCaseTitle = person.lastName.toLowerCase();
                 let lowerCaseFilter = filterName.toLowerCase();
                 if (lowerCaseTitle.includes(lowerCaseFilter)) {
@@ -28,8 +32,22 @@ export async function fetchPeople() {
                 }
             })
         }
+
+        if (filterMonth) {
+            sortedBirthday = sortedBirthday.filter(person => {
+                let myDateBirth = new Date(person.birthday); 
+                let month = myDateBirth.toLocaleString("en-us", { month: "long" } );
+                let monthLowerCase = month.toLowerCase();
+                let lowerCaseMonth = filterMonth.toLowerCase();
+                if (monthLowerCase == lowerCaseMonth) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        }
        
-        tbody.innerHTML = people.map((person, index) => {
+        tbody.innerHTML = sortedBirthday.map((person, index) => {
             function suffixDay(day) {
                 if (day > 3 && day < 21 ) return "th";
                 switch (day % 10) {
@@ -46,8 +64,8 @@ export async function fetchPeople() {
             let myDateDay = myDate.getDay();
             let bithdayResult = `${myDateYear}/${myDateMonth}/${myDateDay}`;
             let age = today.getFullYear() - myDateYear;
-            let month = ["January", "February", "March", "April", "May", "June", "Jolay", "August", "Septamber", "October", "November", "Desamber"]
-            [myDateMonth - 1];
+
+            let month = myDate.toLocaleString("en-us", { month: "long" });
 
             let myBirthday = [myDateDay, myDateMonth];
             let myBirthdayDay = new Date(today.getFullYear(), myBirthday[1] - 1, myBirthday[0]);
@@ -96,7 +114,6 @@ export async function fetchPeople() {
     //Html for the edit button
     function displayEditBtn(idToEdit) {
         const findPeople = people.find(people => people.id == idToEdit);
-        console.log(findPeople);
             var myDate = new Date(findPeople.birthday);
             var myDateYear = myDate.getFullYear();
             var myDateMonth = myDate.getMonth() + 1;
@@ -133,16 +150,20 @@ export async function fetchPeople() {
                 if (e.target.closest('button.cancelEdit')) {
                     destroyPopup(popup);
                 }
+            });
+
+            window.addEventListener('keydown', e => {
+                if (e.key === 'Escape') {
+                    destroyPopup(popup);                }
             })
 
             popup.addEventListener('submit', (e) => {
-                console.log(popup);
                 e.preventDefault();
                 
                 findPeople.lastName = popup.lastName.value,
                 findPeople.firstName = popup.firstName.value,
                 findPeople.picture = popup.pictures.value,
-                findPeople.birthday = popup.birthDay.value,
+                findPeople.birthday = popup.birthDay.value, 
 
                 displayPeople();
                 destroyPopup(popup);
@@ -150,13 +171,11 @@ export async function fetchPeople() {
             }, { once: true });
 
             document.body.appendChild(popup);
-            console.log(popup);
             popup.classList.add('open');
     };
 
     //Html for the delete button
     function displayDeleteBtn(idToDelete) {
-        console.log(idToDelete);
         return new Promise(async function(resolve) {
 			// First we need to create a popp with all the fields in it
 			const delPopup = document.createElement('div');
@@ -177,6 +196,12 @@ export async function fetchPeople() {
                 if (cancelBtn) {
                     destroyPopup(delPopup);
                 }
+
+                window.addEventListener('keydown', e => {
+                    if (e.key === 'Escape') {
+                        destroyPopup(delPopup);                }
+                })
+    
                 const yesBtn = e.target.closest('button.yes');
                 if (yesBtn) {
                     const removeLi = people.filter(people => people.id != idToDelete);
@@ -207,6 +232,7 @@ export async function fetchPeople() {
         }
         people.push(newPeople);
         console.log(people);
+        //Reset the form
         form.reset();
         tbody.dispatchEvent(new CustomEvent('updatedTheList'));
         closeModal();
@@ -234,15 +260,16 @@ export async function fetchPeople() {
     //************* EVENT LISTENER **********
     resetBtn.addEventListener('click', resetFilters);
     filterNameInput.addEventListener('keyup', filter);
-    // filterMonthBirthday.addEventListener('change', filter);
+    filterMonthBirthday.addEventListener('change', filter);
     tbody.addEventListener('updatedTheList', displayPeople);
     tbody.addEventListener('updatedTheList', updateLocalStorage);
-    buttonAdd.addEventListener('click', handleNewPeople);
     modalInner.addEventListener('submit', addNewPeople);
     modalOuter.addEventListener('click', handleClickOutside);
-    // window.addEventListener('keyup', handleEscapeKey);
     tbody.addEventListener('click', editandDeleteButtons);
     initialStorage();
 }
+
+buttonAdd.addEventListener('click', handleNewPeople);
+window.addEventListener('keydown', handleEscapeKey);
 
 fetchPeople();

@@ -30,3 +30,9 @@ export const handleClickOutside = (e) => {
         closeModal();
     }
 }
+
+export const handleEscapeKey = (e) => {
+    if (e.key === 'Escape') {
+        closeModal();
+    }
+}
