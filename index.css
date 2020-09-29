@@ -5,7 +5,7 @@ html {
 body {
     margin: 0;
     padding: 0;
-    background-color: lightblue;
+    background-color: #fffffe;
 }
 
 .bg_heading {
@@ -42,8 +42,9 @@ tr {
 	grid-auto-flow: column;
 	grid-template-columns: repeat(7, minmax(100px, 1fr));
 	place-items: center center;
-	gap: 20px;
-	padding: 1rem 2rem;
+	row-gap: 20px white;
+    padding: 1rem 2rem;
+    column-gap: 20px;
 }
 
 thead tr {
@@ -55,11 +56,7 @@ tbody tr:last-child {
 }
 
 tr {
-    background: lightgrey;
-}
-
-tr.even {
-	background-color: #fffffe;
+    background: #d1d1e9;
 }
 
 .heading {
@@ -102,10 +99,12 @@ tr.even {
     background-repeat: no-repeat;
     background-position: center;
     background-size: 2rem;
-    height: 30px;
     text-indent: -9999px;
     border: none;
-    background-color: transparent;
+    width: 50px;
+    height: 50px;
+    background-color: #6246ea;
+    border-radius: 5px;
 }
 
 .edit {
@@ -118,14 +117,11 @@ tr.even {
 
 .edit:hover,
 .delete:hover {
-    background-color: lightblue;
+    background-color: rgb(247, 105, 11);
     transition: background-color;
     transition-duration: 0.2s;
     transition-timing-function: ease-in;
-}
-
-.even {
-    background-color: lightgrey;
+    border-radius: 50%;
 }
 
 .modal_outer{
@@ -179,12 +175,16 @@ fieldset input {
 .yes,
 .submitbtn,
 .cancelEdit {
-    background-color: green;
+    background-color: #6246ea;
 	color: #eff0f3;
 	text-transform: uppercase;
 	padding: 0.5rem 1.5rem 0.5rem 1.5rem;
 	border-radius: 10px;
 	border: 0;
+}
+
+.btn-add:hover {
+    background: green;
 }
 
 .delPopup,
@@ -221,6 +221,10 @@ fieldset input {
 	--opacity: 1;
     pointer-events: all;
     transform: translate(50%, 50%);
+}
+
+.delPopup.open {
+    transform: translate(100%, 100%);
 }
 
 .popup.open fieldset {
