@@ -47,12 +47,16 @@ tr {
     column-gap: 20px;
 }
 
+tr + tr {
+    margin-top: 1rem;
+}
+
 thead tr {
     border-radius: 10px 10px 0px 0px;
 }
 
-tbody tr:last-child {
-    border-radius: 0px 0px 10px 10px;
+tbody tr {
+    border-radius: 5px 5px 5px 5px;
 }
 
 tr {
@@ -92,6 +96,16 @@ tr {
 .reset_filter {
     margin-left: 2rem;
     padding: 0.5rem;
+}
+
+.search,
+.month {
+    background: #e45858;
+    border: 0;
+    border-radius: 5px;
+    width: 200px;
+    height: 2rem;
+    color: white;
 }
 
 .delete,
@@ -163,7 +177,6 @@ fieldset {
     border: transparent;
 }
 
-.month,
 fieldset input {
     height: 2rem;
     width: 100%;

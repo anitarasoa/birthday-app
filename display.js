@@ -60,7 +60,7 @@ export const displayPeople = (e, filterName, filterMonth) => {
             myBirthdayDay.setFullYear(myBirthdayDay.getFullYear() + 1);
         }
         let different = myBirthdayDay.getTime() - today.getTime();
-        let days = Math.floor(different / (1000 * 60 * 60 * 24));
+        let days = Math.round(different / (1000 * 60 * 60 * 24));
 
         //Create html for the data and put into dom.
         return `
@@ -69,7 +69,7 @@ export const displayPeople = (e, filterName, filterMonth) => {
             <td class="lastname">${person.lastName} ${person.firstName}</td>
             <td>${bithdayResult}</td>
             <td>Turn ${age} on ${month} ${myDateDay}<sup>${suffixDay(myDateDay)}</sup></td>
-            <td>${days} Days</td>
+            <td>After ${days} Days</td>
             <td>
                 <button class="edit" value="${person.id}"> Edit</button>
             </td>
