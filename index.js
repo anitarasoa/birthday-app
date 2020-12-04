@@ -5,6 +5,8 @@ import { handleNewPeople } from './handler.js';
 import { displayPeople } from './display.js';
 import { displayEditBtn } from './display-edit.js';
 import { addNewPeople } from './add.js';
+// import { peoples } from './people';
+// console.log(peoples);
 
 export let people = [];
 //Fetch the data from the people.json files
@@ -13,6 +15,7 @@ export async function fetchPeople() {
     const data = await response.json();
     people = data;
 
+    console.log(data);
    function editandDeleteButtons(e) {
         if (e.target.closest('button.edit')) {
             const closer = e.target.closest('.tr_container');
@@ -75,12 +78,12 @@ export async function fetchPeople() {
     const initialStorage = () => {
         const stringFromLs = localStorage.getItem('people');
         const lsItems = JSON.parse(stringFromLs);
-        console.log(lsItems);
+      
         if (lsItems) {
             people = lsItems;
             tbody.dispatchEvent(new CustomEvent('updatedTheList'));
         } else {
-            people = [];
+            people =  people;
         }
     };
     

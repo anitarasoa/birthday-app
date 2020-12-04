@@ -1,5 +1,5 @@
 import { modalOuter,  filterForm, filterNameInput, filterMonthBirthday } from './element.js';
-import { fetchPeople } from './script.js';
+import { fetchPeople } from './index.js';
 import { displayPeople } from './display.js';
 
 export const resetFilters = e => {

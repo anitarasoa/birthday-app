@@ -1,4 +1,4 @@
-import { people } from './script.js';
+import { people } from './index.js';
 import { tbody } from './element.js';
 
 export const displayPeople = (e, filterName, filterMonth) => {
