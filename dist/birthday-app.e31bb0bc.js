@@ -488,8 +488,6 @@ var _displayEdit = require("./display-edit.js");
 
 var _add = require("./add.js");
 
-// import { peoples } from './people';
-// console.log(peoples);
 let people = []; //Fetch the data from the people.json files
 
 exports.people = people;
@@ -630,7 +628,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50883" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51993" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

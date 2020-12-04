@@ -5,8 +5,6 @@ import { handleNewPeople } from './handler.js';
 import { displayPeople } from './display.js';
 import { displayEditBtn } from './display-edit.js';
 import { addNewPeople } from './add.js';
-// import { peoples } from './people';
-// console.log(peoples);
 
 export let people = [];
 //Fetch the data from the people.json files
