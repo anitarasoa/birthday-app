@@ -15,6 +15,8 @@
 
 In this project our goal is to display lists of people by fetching data from an url with people's birth date and their avatar. And calculating their birthday in this year whether it is already gone or still about to come. Then you can the people that has the nearest birthday date.
 
+![My birthday app](./assets/birthday-app.webp)
+
 You can see my demo by clicking this link with the username [Betsimisaraka](https://github.com/Betsimisaraka/birthday-app)
 
 ### Build with
