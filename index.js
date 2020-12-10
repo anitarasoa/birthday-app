@@ -30,6 +30,7 @@ export async function fetchPeople() {
 
     function displayEditBtn(idToEdit) {
         const findPeople = people.find(people => people.id == idToEdit);
+        console.log(findPeople);
             const popup = document.createElement('form');
             popup.classList.add('popup');
             popup.insertAdjacentHTML('afterbegin', 
@@ -48,7 +49,7 @@ export async function fetchPeople() {
                 </fieldset>
                 <fieldset>
                     <label for="birthDay">Days</label>
-                    <input type="text" id="birthDay" name="birthDay" value="${findPeople.birthday}" required>
+                    <input type="date" id="birthDay" name="birthDay" required>
                 </fieldset>
                 <div class="buttons">
                     <button type="submit" class="submitbtn">Submit</button>

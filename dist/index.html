@@ -14,16 +14,13 @@
 	</header>
 	<main>
 		<div class="heading">
-			<header>
-				<h2>List of people</h2>
-			</header>
 			<form action="/" class="form_filter">
 				<fieldset class="filter">
-					<label for="search">Seach by Name</label>
+					<label class="name-label" for="search">Seach by Name</label>
 					<input type="text" id="search_name" class="search" placeholder="Enter lastname">
 				</fieldset>
 				<fieldset class="filter">
-					<label for="select">Month: </label>
+					<label class="month-label" for="select">Month: </label>
 					<select name="month" id="month_birthday" class="month">
 						<option value="">Select month</option>
 						<option value="january">January</option>
@@ -43,8 +40,8 @@
 				<fieldset class="reset_field">
 					<button type="button" class="reset_filter"> Reset</button>
 				</fieldset>
-			</form>
-			<button type="button" class="btn-add">Add new People</button>
+			<button type="button" class="btn-add">Add people</button>
+		</form>
 		</div>
 		<section>
 			<table>

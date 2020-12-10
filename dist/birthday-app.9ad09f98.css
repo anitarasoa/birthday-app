@@ -5,11 +5,20 @@ html {
 body {
     margin: 0;
     padding: 0;
-    background-color: #fffffe;
+    background-color: #fef6e4;
 }
 
 .bg_heading {
     text-align: center;
+    background-color: #f3d2c1;
+}
+
+h1 {
+    margin: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    color: #001858;
+    text-shadow: 2px 2px 0 #c56b6b, 4px 4px 0 #d17e7e;
 }
 
 .heading,
@@ -78,13 +87,15 @@ tr {
     align-self: flex-end;
 }
 
-.filter + .filter {
-    margin-left: 4rem;
+.btn-add:hover {
+    background: green;
 }
 
 .form_filter {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
 }
 
 .filter,
@@ -94,9 +105,22 @@ tr {
     align-self: flex-end;
 }
 
+.btn-add,
 .reset_filter {
-    margin-left: 2rem;
+    background-color: #e45858;
+    color: #ffffff;
     padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn-add {
+    margin-top: 2rem;
+}
+
+.month-label,
+.name-label {
+    padding-bottom: 1rem;
 }
 
 .search,
@@ -183,7 +207,6 @@ fieldset input {
     width: 100%;
 }
 
-.btn-add,
 .submit,
 .cancelDelete,
 .yes,
@@ -191,14 +214,10 @@ fieldset input {
 .cancelEdit {
     background-color: #6246ea;
 	color: #eff0f3;
-	text-transform: uppercase;
-	padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+    text-transform: uppercase;
+    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
 	border-radius: 10px;
 	border: 0;
-}
-
-.btn-add:hover {
-    background: green;
 }
 
 .delPopup,

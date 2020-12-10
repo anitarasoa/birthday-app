@@ -232,11 +232,11 @@ function displayPeople(people) {
     let myDateYear = myDate.getFullYear();
     let myDateMonth = myDate.getMonth() + 1;
     let myDateDay = myDate.getDate();
-    const fullDate = `${myDateDay}${nthDate(myDateDay)} / ${myDateMonth + 1} / ${myDateYear}`;
+    const fullDate = `${myDateDay}${nthDate(myDateDay)} / ${myDateMonth} / ${myDateYear}`;
     const futureAge = today.getFullYear() - myDateYear; // Counting how many days left untill the person's birthday
 
     const momentYear = today.getFullYear();
-    const birthDayDate = new Date(momentYear, myDateMonth, myDateDay);
+    const birthDayDate = new Date(momentYear, myDateMonth - 1, myDateDay);
     let oneDay = 1000 * 60 * 60 * 24;
     const getTheDate = birthDayDate.getTime() - today.getTime();
     const dayLeft = Math.ceil(getTheDate / oneDay); //Create html for the data and put into dom.
@@ -314,6 +314,7 @@ async function fetchPeople() {
 
   function displayEditBtn(idToEdit) {
     const findPeople = people.find(people => people.id == idToEdit);
+    console.log(findPeople);
     const popup = document.createElement('form');
     popup.classList.add('popup');
     popup.insertAdjacentHTML('afterbegin', `
@@ -331,7 +332,7 @@ async function fetchPeople() {
                 </fieldset>
                 <fieldset>
                     <label for="birthDay">Days</label>
-                    <input type="text" id="birthDay" name="birthDay" value="${findPeople.birthday}" required>
+                    <input type="date" id="birthDay" name="birthDay" required>
                 </fieldset>
                 <div class="buttons">
                     <button type="submit" class="submitbtn">Submit</button>
