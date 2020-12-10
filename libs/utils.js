@@ -1,15 +1,10 @@
-import { modalOuter,  filterForm, filterNameInput, filterMonthBirthday } from './element.js';
-import { fetchPeople } from './index.js';
-import { displayPeople } from './display.js';
+import { modalOuter,  filterForm } from '../libs/element.js';
+import { fetchPeople } from '../index.js';
 
-export const resetFilters = e => {
-    filterForm.reset();
-    fetchPeople();
-};
-
-export const filter = (e) => {
-    displayPeople(e, filterNameInput.value, filterMonthBirthday.value);
-}
+// export const resetFilters = e => {
+//     filterForm.reset();
+//     fetchPeople();
+// };
 
 function wait(ms = 0) {
     return new Promise(resolve => setTimeout(resolve, ms));

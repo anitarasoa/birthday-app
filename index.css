@@ -40,9 +40,10 @@ thead tr {
 tr {
 	display: grid;
 	grid-auto-flow: column;
-	grid-template-columns: repeat(7, minmax(100px, 1fr));
+	grid-template-columns: repeat(6, minmax(100px, 1fr));
 	place-items: center center;
-	row-gap: 20px white;
+    row-gap: 20px white;
+    flex-wrap: wrap;
     padding: 1rem 2rem;
     column-gap: 20px;
 }

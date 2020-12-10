@@ -117,13 +117,15 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"element.js":[function(require,module,exports) {
+})({"libs/element.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.resetBtn = exports.filterForm = exports.filterMonthBirthday = exports.filterNameInput = exports.tbody = exports.modalInner = exports.modalOuter = exports.buttonAdd = void 0;
+exports.resetBtn = exports.filterForm = exports.filterMonthBirthday = exports.filterNameInput = exports.tbody = exports.modalInner = exports.modalOuter = exports.buttonAdd = exports.endpoint = void 0;
+const endpoint = "https://gist.githubusercontent.com/Pinois/e1c72b75917985dc77f5c808e876b67f/raw/93debb7463fbaaec29622221b8f9e719bd5b119f/birthdayPeople.json";
+exports.endpoint = endpoint;
 const buttonAdd = document.querySelector('.btn-add');
 exports.buttonAdd = buttonAdd;
 const modalOuter = document.querySelector('.modal_outer');
@@ -140,142 +142,23 @@ const filterForm = document.querySelector('.form_filter');
 exports.filterForm = filterForm;
 const resetBtn = document.querySelector('.reset_filter');
 exports.resetBtn = resetBtn;
-},{}],"display.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.displayPeople = void 0;
-
-var _index = require("./index.js");
-
-var _element = require("./element.js");
-
-const displayPeople = (e, filterName, filterMonth) => {
-  let sortedBirthday = _index.people.sort((a, b) => {
-    const dateA = new Date(a.birthday);
-    const dateB = new Date(b.birthday);
-    return dateA.getTime() - dateB.getTime();
-  });
-
-  if (filterName) {
-    sortedBirthday = sortedBirthday.filter(person => {
-      let lowerCaseTitle = person.lastName.toLowerCase();
-      let lowerCaseFilter = filterName.toLowerCase();
-
-      if (lowerCaseTitle.includes(lowerCaseFilter)) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-  }
-
-  if (filterMonth) {
-    sortedBirthday = sortedBirthday.filter(person => {
-      let myDateBirth = new Date(person.birthday);
-      let month = myDateBirth.toLocaleString("en-us", {
-        month: "long"
-      });
-      let monthLowerCase = month.toLowerCase();
-      let lowerCaseMonth = filterMonth.toLowerCase();
-
-      if (monthLowerCase == lowerCaseMonth) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-  }
-
-  _element.tbody.innerHTML = sortedBirthday.map(person => {
-    function suffixDay(day) {
-      if (day > 3 && day < 21) return "th";
-
-      switch (day % 10) {
-        case 1:
-          return "st";
-
-        case 2:
-          return "nd";
-
-        case 3:
-          return "rd";
-
-        default:
-          return "th";
-      }
-    }
-
-    let myDate = new Date(person.birthday);
-    let today = new Date();
-    let myDateYear = myDate.getFullYear();
-    let myDateMonth = myDate.getMonth() + 1;
-    let myDateDay = myDate.getDay();
-    let bithdayResult = `${myDateYear}/${myDateMonth}/${myDateDay}`;
-    let age = today.getFullYear() - myDateYear;
-    let month = myDate.toLocaleString("en-us", {
-      month: "long"
-    });
-    let myBirthday = [myDateDay, myDateMonth];
-    let myBirthdayDay = new Date(today.getFullYear(), myBirthday[1] - 1, myBirthday[0]);
-
-    if (today.getTime() > myBirthdayDay.getTime()) {
-      myBirthdayDay.setFullYear(myBirthdayDay.getFullYear() + 1);
-    }
-
-    let different = myBirthdayDay.getTime() - today.getTime();
-    let days = Math.round(different / (1000 * 60 * 60 * 24)); //Create html for the data and put into dom.
-
-    return `
-        <tr data-id="${person.id}" class="tr_container">
-            <td><img class="picture" src="${person.picture}" alt="${person.firstName + ' ' + person.lastName}"/></td>
-            <td class="lastname">${person.lastName} ${person.firstName}</td>
-            <td>${bithdayResult}</td>
-            <td>Turn ${age} on ${month} ${myDateDay}<sup>${suffixDay(myDateDay)}</sup></td>
-            <td>After ${days} Days</td>
-            <td>
-                <button class="edit" value="${person.id}"> Edit</button>
-            </td>
-            <td>
-                <button class="delete" value="${person.id}"> Delete</button>
-            </td>
-        </tr>
-        `;
-  }).join('');
-};
-
-exports.displayPeople = displayPeople;
-},{"./index.js":"index.js","./element.js":"element.js"}],"utils.js":[function(require,module,exports) {
+},{}],"libs/utils.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.destroyPopup = destroyPopup;
-exports.handleEscapeKey = exports.handleClickOutside = exports.closeModal = exports.filter = exports.resetFilters = void 0;
+exports.handleEscapeKey = exports.handleClickOutside = exports.closeModal = void 0;
 
-var _element = require("./element.js");
+var _element = require("../libs/element.js");
 
-var _index = require("./index.js");
+var _index = require("../index.js");
 
-var _display = require("./display.js");
-
-const resetFilters = e => {
-  _element.filterForm.reset();
-
-  (0, _index.fetchPeople)();
-};
-
-exports.resetFilters = resetFilters;
-
-const filter = e => {
-  (0, _display.displayPeople)(e, _element.filterNameInput.value, _element.filterMonthBirthday.value);
-};
-
-exports.filter = filter;
-
+// export const resetFilters = e => {
+//     filterForm.reset();
+//     fetchPeople();
+// };
 function wait(ms = 0) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -314,205 +197,171 @@ const handleEscapeKey = e => {
 };
 
 exports.handleEscapeKey = handleEscapeKey;
-},{"./element.js":"element.js","./index.js":"index.js","./display.js":"display.js"}],"handler.js":[function(require,module,exports) {
+},{"../libs/element.js":"libs/element.js","../index.js":"index.js"}],"libs/display.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.handleNewPeople = void 0;
+exports.displayPeople = displayPeople;
 
-var _element = require("./element.js");
+function displayPeople(people) {
+  return people.sort(function (a, b) {
+    return new Date(a.birthday).getMonth() - new Date(b.birthday).getMonth();
+  }).map(person => {
+    function nthDate(day) {
+      if (day > 3 && day < 21) return "th";
 
-// To create the html for the new pople
-const handleNewPeople = () => {
-  _element.modalInner.innerHTML = `
-    <form action="" class="form_submit">
-        <fieldset>
-            <label for="picture">Picture</label>
-            <input type="url" id="picture" name="picture" required>
-        </fieldset>
-        <fieldset>
-            <label for="lastname">Last name</label>
-            <input type="text" id="lastname" name="lastname" required>
-        </fieldset>
-        <fieldset>
-            <label for="firstname">First name</label>
-            <input type="text" id="firstname" name="firstname" required>
-        </fieldset>
-        <fieldset>
-            <label for="birthday">Days</label>
-            <input type="date" id="birthday" name="birthday" required>
-        </fieldset>
-        <div class="buttons">
-            <button type="submit" class="submit">Submit</button>
-        </div>
-        </form>
-    `;
+      switch (day % 10) {
+        case 1:
+          return "st";
 
-  _element.modalOuter.classList.add('open');
-};
+        case 2:
+          return "nd";
 
-exports.handleNewPeople = handleNewPeople;
-},{"./element.js":"element.js"}],"display-edit.js":[function(require,module,exports) {
-"use strict";
+        case 3:
+          return "rd";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.displayEditBtn = displayEditBtn;
-
-var _index = require("./index.js");
-
-var _element = require("./element.js");
-
-var _utils = require("./utils.js");
-
-var _display = require("./display.js");
-
-function displayEditBtn(idToEdit) {
-  const findPeople = _index.people.find(people => people.id == idToEdit);
-
-  var myDate = new Date(findPeople.birthday);
-  var myDateYear = myDate.getFullYear();
-  var myDateMonth = myDate.getMonth() + 1;
-  var myDateDay = myDate.getDay();
-  var bithdayResult = `${myDateYear}/${myDateMonth}/${myDateDay}`; // First we need to create a popp with all the fields in it
-
-  const popup = document.createElement('form');
-  popup.classList.add('popup');
-  popup.insertAdjacentHTML('afterbegin', `
-            <fieldset>
-                <label for="pictures">Picture</label>
-                <input type="url" id="pictures" name="pictures" value="${findPeople.picture}" required>
-            </fieldset>
-            <fieldset>
-                <label for="lastName">Last name</label>
-                <input type="text" id="lastName" name="lastName" value="${findPeople.lastName}" required>
-            </fieldset>
-            <fieldset>
-                <label for="firstName">First name</label>
-                <input type="text" id="firstName" name="firstName" value="${findPeople.firstName}" required>
-            </fieldset>
-            <fieldset>
-                <label for="birthDay">Days</label>
-                <input type="text" id="birthDay" name="birthDay" value="${bithdayResult}" required>
-            </fieldset>
-            <div class="buttons">
-                <button type="submit" class="submitbtn">Submit</button>
-                <button type="button" class="cancelEdit">Cancel</button>
-            </div>
-        `);
-  window.addEventListener('click', e => {
-    if (e.target.closest('button.cancelEdit')) {
-      (0, _utils.destroyPopup)(popup);
+        default:
+          return "th";
+      }
     }
-  });
-  window.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      (0, _utils.destroyPopup)(popup);
-    }
-  });
-  popup.addEventListener('submit', e => {
-    e.preventDefault();
-    findPeople.lastName = popup.lastName.value, findPeople.firstName = popup.firstName.value, findPeople.picture = popup.pictures.value, findPeople.birthday = popup.birthDay.value, (0, _display.displayPeople)();
-    (0, _utils.destroyPopup)(popup);
 
-    _element.tbody.dispatchEvent(new CustomEvent('updatedTheList'));
-  }, {
-    once: true
-  });
-  document.body.appendChild(popup);
-  popup.classList.add('open');
+    let today = new Date();
+    let myDate = new Date(person.birthday);
+    let myDateYear = myDate.getFullYear();
+    let myDateMonth = myDate.getMonth() + 1;
+    let myDateDay = myDate.getDate();
+    const fullDate = `${myDateDay}${nthDate(myDateDay)} / ${myDateMonth + 1} / ${myDateYear}`;
+    const futureAge = today.getFullYear() - myDateYear; // Counting how many days left untill the person's birthday
+
+    const momentYear = today.getFullYear();
+    const birthDayDate = new Date(momentYear, myDateMonth, myDateDay);
+    let oneDay = 1000 * 60 * 60 * 24;
+    const getTheDate = birthDayDate.getTime() - today.getTime();
+    const dayLeft = Math.ceil(getTheDate / oneDay); //Create html for the data and put into dom.
+
+    return `
+        <tr data-id="${person.id}" class="tr_container">
+            <td><img class="picture" src="${person.picture}" alt="${person.firstName + ' ' + person.lastName}"/></td>
+            <td 
+                <span class="lastname">${person.lastName} ${person.firstName}</span>
+                    <p>
+                    Turns ${futureAge <= 1 ? futureAge + " " + "year" : futureAge + " " + "years"} old on the 
+                    ${new Date(person.birthday).toLocaleString("en-US", {
+      month: "long"
+    })}
+                    <time datetime="${fullDate}">
+                        ${new Date(person.birthday).toLocaleString("en-US", {
+      day: "numeric"
+    })}<sup>${nthDate(myDateDay)}</sup>
+                    </time> 
+                </p>
+            </td>
+            <td><time datetime="${fullDate}"> ${fullDate}</time></td>
+            <td>${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" : dayLeft <= 1 ? dayLeft + " " + "day" : dayLeft + 'days'}
+            </td>
+            <td>
+                <button class="edit" data-id="${person.id}"> Edit</button>
+            </td>
+            <td>
+                <button class="delete" data-id="${person.id}"> Delete</button>
+            </td>
+        </tr>
+        `;
+  }).join('');
 }
-
-;
-},{"./index.js":"index.js","./element.js":"element.js","./utils.js":"utils.js","./display.js":"display.js"}],"add.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.addNewPeople = void 0;
-
-var _index = require("./index.js");
-
-var _element = require("./element.js");
-
-var _utils = require("./utils.js");
-
-// Add new person to the list
-const addNewPeople = e => {
-  e.preventDefault();
-  const form = e.target;
-  console.log(form);
-  const newPeople = {
-    id: Date.now(),
-    picture: form.picture.value,
-    lastName: form.lastname.value,
-    firstName: form.firstname.value,
-    birthday: form.birthday.value
-  };
-
-  _index.people.push(newPeople);
-
-  console.log(_index.people); //Reset the form
-
-  form.reset();
-
-  _element.tbody.dispatchEvent(new CustomEvent('updatedTheList'));
-
-  (0, _utils.closeModal)();
-  console.log(newPeople);
-};
-
-exports.addNewPeople = addNewPeople;
-},{"./index.js":"index.js","./element.js":"element.js","./utils.js":"utils.js"}],"index.js":[function(require,module,exports) {
+},{}],"index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.fetchPeople = fetchPeople;
-exports.people = void 0;
 
-var _element = require("./element.js");
+var _element = require("./libs/element.js");
 
-var _utils = require("./utils.js");
+var _utils = require("./libs/utils.js");
 
-var _handler = require("./handler.js");
+var _display = require("./libs/display.js");
 
-var _display = require("./display.js");
-
-var _displayEdit = require("./display-edit.js");
-
-var _add = require("./add.js");
-
-let people = []; //Fetch the data from the people.json files
-
-exports.people = people;
-
+//Fetch the data from the people.json files
 async function fetchPeople() {
-  const response = await fetch("./people.json");
+  const response = await fetch(_element.endpoint);
   const data = await response.json();
-  exports.people = people = data;
-  console.log(data);
+  let people = data;
+
+  function displayLists() {
+    const html = (0, _display.displayPeople)(people);
+    _element.tbody.innerHTML = html;
+  }
+
+  displayLists();
 
   function editandDeleteButtons(e) {
     if (e.target.closest('button.edit')) {
-      const closer = e.target.closest('.tr_container');
-      const editBtn = closer.querySelector('button.edit');
-      const id = editBtn.value;
-      (0, _displayEdit.displayEditBtn)(id);
+      const tableToEdit = e.target.closest('tr');
+      const id = tableToEdit.dataset.id;
+      displayEditBtn(id);
     }
 
     if (e.target.closest('button.delete')) {
-      const deleteBtn = e.target.closest('button.delete');
-      const id = deleteBtn.value;
+      const rowToDelete = e.target.closest('tr');
+      const id = rowToDelete.dataset.id;
       displayDeleteBtn(id);
     }
-  } //Html for the delete button
+  }
 
+  function displayEditBtn(idToEdit) {
+    const findPeople = people.find(people => people.id == idToEdit);
+    const popup = document.createElement('form');
+    popup.classList.add('popup');
+    popup.insertAdjacentHTML('afterbegin', `
+                <fieldset>
+                    <label for="pictures">Picture</label>
+                    <input type="url" id="pictures" name="pictures" value="${findPeople.picture}" required>
+                </fieldset>
+                <fieldset>
+                    <label for="lastName">Last name</label>
+                    <input type="text" id="lastName" name="lastName" value="${findPeople.lastName}" required>
+                </fieldset>
+                <fieldset>
+                    <label for="firstName">First name</label>
+                    <input type="text" id="firstName" name="firstName" value="${findPeople.firstName}" required>
+                </fieldset>
+                <fieldset>
+                    <label for="birthDay">Days</label>
+                    <input type="text" id="birthDay" name="birthDay" value="${findPeople.birthday}" required>
+                </fieldset>
+                <div class="buttons">
+                    <button type="submit" class="submitbtn">Submit</button>
+                    <button type="button" class="cancelEdit">Cancel</button>
+                </div>
+            `);
+    window.addEventListener('click', e => {
+      if (e.target.closest('button.cancelEdit')) {
+        (0, _utils.destroyPopup)(popup);
+      }
+    });
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        (0, _utils.destroyPopup)(popup);
+      }
+    });
+    popup.addEventListener('submit', e => {
+      e.preventDefault();
+      findPeople.lastName = popup.lastName.value, findPeople.firstName = popup.firstName.value, findPeople.picture = popup.pictures.value, findPeople.birthday = popup.birthDay.value, displayLists(findPeople);
+      (0, _utils.destroyPopup)(popup);
+
+      _element.tbody.dispatchEvent(new CustomEvent('updatedTheList'));
+    }, {
+      once: true
+    });
+    document.body.appendChild(popup);
+    popup.classList.add('open');
+  }
+
+  ; //Html for the delete button
 
   function displayDeleteBtn(idToDelete) {
     return new Promise(async function (resolve) {
@@ -528,7 +377,7 @@ async function fetchPeople() {
             `);
       delPopup.classList.add('open');
       window.addEventListener('click', e => {
-        const cancelBtn = e.target.closest('.cancelDelete');
+        const cancelBtn = e.target.closest('button.cancelDelete');
 
         if (cancelBtn) {
           (0, _utils.destroyPopup)(delPopup);
@@ -543,9 +392,8 @@ async function fetchPeople() {
 
         if (yesBtn) {
           const removeLi = people.filter(people => people.id != idToDelete);
-          const btndelete = removeLi;
-          exports.people = people = btndelete;
-          (0, _display.displayPeople)(btndelete);
+          people = removeLi;
+          displayLists(removeLi);
 
           _element.tbody.dispatchEvent(new CustomEvent('updatedTheList'));
 
@@ -555,20 +403,99 @@ async function fetchPeople() {
       document.body.appendChild(delPopup);
       delPopup.classList.add('open');
     });
-  } // //To get the items from the local storage
+  }
+
+  const handleNewPeople = () => {
+    _element.modalInner.innerHTML = `
+        <form action="" class="form_submit">
+            <fieldset>
+                <label for="picture">Picture</label>
+                <input type="url" id="picture" name="picture" required>
+            </fieldset>
+            <fieldset>
+                <label for="lastname">Last name</label>
+                <input type="text" id="lastname" name="lastname" required>
+            </fieldset>
+            <fieldset>
+                <label for="firstname">First name</label>
+                <input type="text" id="firstname" name="firstname" required>
+            </fieldset>
+            <fieldset>
+                <label for="birthday">Days</label>
+                <input type="date" id="birthday" name="birthday" required>
+            </fieldset>
+            <div class="buttons">
+                <button type="submit" class="submit">Submit</button>
+            </div>
+            </form>
+        `;
+
+    _element.modalOuter.classList.add('open');
+  }; // Add new person to the list
+
+
+  const addNewPeople = e => {
+    e.preventDefault();
+    const form = e.target;
+    const newPeople = {
+      id: Date.now(),
+      picture: form.picture.value,
+      lastName: form.lastname.value,
+      firstName: form.firstname.value,
+      birthday: form.birthday.value
+    };
+    people.push(newPeople);
+    displayLists(people); //Reset the form
+
+    form.reset();
+
+    _element.tbody.dispatchEvent(new CustomEvent('updatedTheList'));
+
+    (0, _utils.closeModal)();
+  };
+
+  const filterPersonByName = () => {
+    // Get the value of the input
+    const input = _element.filterNameInput.value;
+    const inputSearch = input.toLowerCase(); // Filter the list by the firstname or lastname
+
+    const searchPerson = people.filter(person => person.lastName.toLowerCase().includes(inputSearch) || person.firstName.toLowerCase().includes(inputSearch));
+    const myHTML = (0, _display.displayPeople)(searchPerson);
+    _element.tbody.innerHTML = myHTML;
+  }; // Filter by month
+
+
+  const filterPersonMonth = e => {
+    // Get the value of the select input
+    const select = _element.filterMonthBirthday.value;
+    const filterPerson = people.filter(person => {
+      // Change the month of birth into string
+      const getMonthOfBirth = new Date(person.birthday).toLocaleString("en-US", {
+        month: "long"
+      }); // Filter the list by the month of birth
+
+      return getMonthOfBirth.toLowerCase().includes(select.toLowerCase());
+    });
+    const myHTML = (0, _display.displayPeople)(filterPerson);
+    _element.tbody.innerHTML = myHTML;
+  };
+
+  const resetFilters = e => {
+    _element.filterForm.reset();
+
+    displayLists();
+  }; // //To get the items from the local storage
 
 
   const initialStorage = () => {
-    const stringFromLs = localStorage.getItem('people');
-    const lsItems = JSON.parse(stringFromLs);
+    const lsItems = JSON.parse(localStorage.getItem('people'));
 
     if (lsItems) {
-      exports.people = people = lsItems;
-
-      _element.tbody.dispatchEvent(new CustomEvent('updatedTheList'));
-    } else {
-      exports.people = people = people;
+      people = lsItems;
+      displayLists();
     }
+
+    _element.tbody.dispatchEvent(new CustomEvent('updatedTheList'));
   }; // To set the item in the local storage.
 
 
@@ -577,17 +504,17 @@ async function fetchPeople() {
   }; //************* EVENT LISTENER **********
 
 
-  _element.resetBtn.addEventListener('click', _utils.resetFilters);
+  _element.buttonAdd.addEventListener('click', handleNewPeople);
 
-  _element.filterNameInput.addEventListener('keyup', _utils.filter);
+  _element.resetBtn.addEventListener('click', resetFilters);
 
-  _element.filterMonthBirthday.addEventListener('change', _utils.filter);
+  _element.filterNameInput.addEventListener('keyup', filterPersonByName);
 
-  _element.tbody.addEventListener('updatedTheList', _display.displayPeople);
+  _element.filterMonthBirthday.addEventListener('change', filterPersonMonth);
 
   _element.tbody.addEventListener('updatedTheList', updateLocalStorage);
 
-  _element.modalInner.addEventListener('submit', _add.addNewPeople);
+  _element.modalInner.addEventListener('submit', addNewPeople);
 
   _element.modalOuter.addEventListener('click', _utils.handleClickOutside);
 
@@ -596,11 +523,9 @@ async function fetchPeople() {
   initialStorage();
 }
 
-_element.buttonAdd.addEventListener('click', _handler.handleNewPeople);
-
 window.addEventListener('keydown', _utils.handleEscapeKey);
 fetchPeople();
-},{"./element.js":"element.js","./utils.js":"utils.js","./handler.js":"handler.js","./display.js":"display.js","./display-edit.js":"display-edit.js","./add.js":"add.js"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./libs/element.js":"libs/element.js","./libs/utils.js":"libs/utils.js","./libs/display.js":"libs/display.js"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -628,7 +553,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51993" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52165" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
