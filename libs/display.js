@@ -32,9 +32,9 @@ export function displayPeople(people) {
         return `
         <tr data-id="${person.id}" class="tr_container">
             <td><img class="picture" src="${person.picture}" alt="${person.firstName + ' ' + person.lastName}"/></td>
-            <td 
-                <span class="lastname">${person.lastName} ${person.firstName}</span>
-                    <p>
+            <td>
+                <span class="person_name">${person.lastName} ${person.firstName}</span>
+                <p class="person_birthday">
                     Turns ${futureAge <= 1 ? futureAge + " " + "year" : futureAge + " " + "years"} old on the 
                     ${new Date(person.birthday)
                         .toLocaleString("en-US", 
@@ -46,8 +46,8 @@ export function displayPeople(people) {
                     </time> 
                 </p>
             </td>
-            <td><time datetime="${fullDate}"> ${fullDate}</time></td>
-            <td>${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" :
+            <td class="person_fulldate"><time datetime="${fullDate}"> ${fullDate}</time></td>
+            <td class="person_birthday_date">${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" :
                 dayLeft <= 1 ? dayLeft + " " + "day" :
                 dayLeft + 'days'}
             </td>

@@ -34,7 +34,7 @@ export async function fetchPeople() {
             const popup = document.createElement('form');
             popup.classList.add('popup');
             popup.insertAdjacentHTML('afterbegin', 
-            `
+            `   <h2 class="edit-heading">Edit <span class="person_to_edit">${findPeople.firstName} ${findPeople.lastName}</span></h2>
                 <fieldset>
                     <label for="pictures">Picture</label>
                     <input type="url" id="pictures" name="pictures" value="${findPeople.picture}" required>
@@ -52,8 +52,8 @@ export async function fetchPeople() {
                     <input type="date" id="birthDay" name="birthDay" required>
                 </fieldset>
                 <div class="buttons">
-                    <button type="submit" class="submitbtn">Submit</button>
-                    <button type="button" class="cancelEdit">Cancel</button>
+                    <button type="submit" class="save">Save changes</button>
+                    <button type="button" class="cancelEdit cancel">Cancel</button>
                 </div>
             `);
     
@@ -88,15 +88,17 @@ export async function fetchPeople() {
     //Html for the delete button
     function displayDeleteBtn(idToDelete) {
         return new Promise(async function(resolve) {
+            const findPeopleToDelete = people.find(people => people.id == idToDelete);
+        console.log(findPeopleToDelete);
 			// First we need to create a popp with all the fields in it
 			const delPopup = document.createElement('div');
 			delPopup.classList.add('delPopup');
 			delPopup.insertAdjacentHTML('afterbegin',
             `	
-                <h3>Are you sure that you want to delete this partener ?</h3>
+                <h2 class="delete_heading">Are you sure that you want to delete <span class="person_to_delete">${findPeopleToDelete.firstName} ${findPeopleToDelete.lastName}?</span></h2>
                 <div class="deletebtns">
                     <button type="button" class="yes">yes</button>
-                    <button type="button" class="cancelDelete">Cancel</button>
+                    <button type="button" class="cancelDelete cancel">Cancel</button>
                 </div>
             `);
             delPopup.classList.add('open');
@@ -131,6 +133,7 @@ export async function fetchPeople() {
         modalInner.innerHTML =    
         `
         <form action="" class="form_submit">
+            <h2 class="add_heading">Add new people</h2>
             <fieldset>
                 <label for="picture">Picture</label>
                 <input type="url" id="picture" name="picture" required>
@@ -149,6 +152,7 @@ export async function fetchPeople() {
             </fieldset>
             <div class="buttons">
                 <button type="submit" class="submit">Submit</button>
+                <button type="button" class="cancel-add cancel">Cancel</button>
             </div>
             </form>
         `;
@@ -172,6 +176,12 @@ export async function fetchPeople() {
         form.reset();
         tbody.dispatchEvent(new CustomEvent('updatedTheList'));
         closeModal();
+    }
+
+    const cancelAddNewPeople = (e) => {
+        if (e.target.closest('button.cancel-add')) {
+            closeModal();
+        }
     }
 
     const filterPersonByName = () => {
@@ -230,6 +240,7 @@ export async function fetchPeople() {
     filterMonthBirthday.addEventListener('change', filterPersonMonth);
     tbody.addEventListener('updatedTheList', updateLocalStorage);
     modalInner.addEventListener('submit', addNewPeople);
+    modalInner.addEventListener('click', cancelAddNewPeople);
     modalOuter.addEventListener('click', handleClickOutside);
     tbody.addEventListener('click', editandDeleteButtons);
     initialStorage();

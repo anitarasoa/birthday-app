@@ -244,9 +244,9 @@ function displayPeople(people) {
     return `
         <tr data-id="${person.id}" class="tr_container">
             <td><img class="picture" src="${person.picture}" alt="${person.firstName + ' ' + person.lastName}"/></td>
-            <td 
-                <span class="lastname">${person.lastName} ${person.firstName}</span>
-                    <p>
+            <td>
+                <span class="person_name">${person.lastName} ${person.firstName}</span>
+                <p class="person_birthday">
                     Turns ${futureAge <= 1 ? futureAge + " " + "year" : futureAge + " " + "years"} old on the 
                     ${new Date(person.birthday).toLocaleString("en-US", {
       month: "long"
@@ -258,8 +258,8 @@ function displayPeople(people) {
                     </time> 
                 </p>
             </td>
-            <td><time datetime="${fullDate}"> ${fullDate}</time></td>
-            <td>${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" : dayLeft <= 1 ? dayLeft + " " + "day" : dayLeft + 'days'}
+            <td class="person_fulldate"><time datetime="${fullDate}"> ${fullDate}</time></td>
+            <td class="person_birthday_date">${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" : dayLeft <= 1 ? dayLeft + " " + "day" : dayLeft + 'days'}
             </td>
             <td>
                 <button class="edit" data-id="${person.id}"> Edit</button>
@@ -317,7 +317,7 @@ async function fetchPeople() {
     console.log(findPeople);
     const popup = document.createElement('form');
     popup.classList.add('popup');
-    popup.insertAdjacentHTML('afterbegin', `
+    popup.insertAdjacentHTML('afterbegin', `   <h2 class="edit-heading">Edit <span class="person_to_edit">${findPeople.firstName} ${findPeople.lastName}</span></h2>
                 <fieldset>
                     <label for="pictures">Picture</label>
                     <input type="url" id="pictures" name="pictures" value="${findPeople.picture}" required>
@@ -335,8 +335,8 @@ async function fetchPeople() {
                     <input type="date" id="birthDay" name="birthDay" required>
                 </fieldset>
                 <div class="buttons">
-                    <button type="submit" class="submitbtn">Submit</button>
-                    <button type="button" class="cancelEdit">Cancel</button>
+                    <button type="submit" class="save">Save changes</button>
+                    <button type="button" class="cancelEdit cancel">Cancel</button>
                 </div>
             `);
     window.addEventListener('click', e => {
@@ -366,14 +366,16 @@ async function fetchPeople() {
 
   function displayDeleteBtn(idToDelete) {
     return new Promise(async function (resolve) {
-      // First we need to create a popp with all the fields in it
+      const findPeopleToDelete = people.find(people => people.id == idToDelete);
+      console.log(findPeopleToDelete); // First we need to create a popp with all the fields in it
+
       const delPopup = document.createElement('div');
       delPopup.classList.add('delPopup');
       delPopup.insertAdjacentHTML('afterbegin', `	
-                <h3>Are you sure that you want to delete this partener ?</h3>
+                <h2 class="delete_heading">Are you sure that you want to delete <span class="person_to_delete">${findPeopleToDelete.firstName} ${findPeopleToDelete.lastName}?</span></h2>
                 <div class="deletebtns">
                     <button type="button" class="yes">yes</button>
-                    <button type="button" class="cancelDelete">Cancel</button>
+                    <button type="button" class="cancelDelete cancel">Cancel</button>
                 </div>
             `);
       delPopup.classList.add('open');
@@ -409,6 +411,7 @@ async function fetchPeople() {
   const handleNewPeople = () => {
     _element.modalInner.innerHTML = `
         <form action="" class="form_submit">
+            <h2 class="add_heading">Add new people</h2>
             <fieldset>
                 <label for="picture">Picture</label>
                 <input type="url" id="picture" name="picture" required>
@@ -427,6 +430,7 @@ async function fetchPeople() {
             </fieldset>
             <div class="buttons">
                 <button type="submit" class="submit">Submit</button>
+                <button type="button" class="cancel-add cancel">Cancel</button>
             </div>
             </form>
         `;
@@ -453,6 +457,12 @@ async function fetchPeople() {
     _element.tbody.dispatchEvent(new CustomEvent('updatedTheList'));
 
     (0, _utils.closeModal)();
+  };
+
+  const cancelAddNewPeople = e => {
+    if (e.target.closest('button.cancel-add')) {
+      (0, _utils.closeModal)();
+    }
   };
 
   const filterPersonByName = () => {
@@ -517,6 +527,8 @@ async function fetchPeople() {
 
   _element.modalInner.addEventListener('submit', addNewPeople);
 
+  _element.modalInner.addEventListener('click', cancelAddNewPeople);
+
   _element.modalOuter.addEventListener('click', _utils.handleClickOutside);
 
   _element.tbody.addEventListener('click', editandDeleteButtons);
@@ -554,7 +566,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52165" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55426" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
