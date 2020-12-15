@@ -9,63 +9,53 @@
 <script src="/birthday-app.9ad09f98.js"></script></head>
 
 <body>
-	<header class="bg_heading">
-		<h1>🎂 Birthday app 🎂 </h1>
-	</header>
-	<main>
-		<div class="heading">
-			<form action="/" class="form_filter">
-				<fieldset class="filter">
-					<label class="name-label" for="search">Filter by Name</label>
-					<input type="text" id="search_name" class="search" placeholder="Enter lastname">
-				</fieldset>
-				<fieldset class="filter">
-					<label class="month-label" for="select">Filter by Month: </label>
-					<select name="month" id="month_birthday" class="month">
-						<option value="">Select month</option>
-						<option value="january">January</option>
-						<option value="february">February</option>
-						<option value="march">March</option>
-						<option value="april">April</option>
-						<option value="may">May</option>
-						<option value="june">June</option>
-						<option value="july">July</option>
-						<option value="august">August</option>
-						<option value="september">September</option>
-						<option value="october">October</option>
-						<option value="november">November</option>
-						<option value="december">December</option>
-					</select>
-				</fieldset>
-				<fieldset class="reset_field">
-					<button type="button" class="reset_filter"> Reset</button>
-				</fieldset>
-				<button type="button" class="btn-add">Add people</button>
-			</form>
-		</div>
-		<section>
-			<table>
-				<thead>
-					<tr>
-						<th>Avatar</th>
-						<th>Name</th>
-						<th>Birthday</th>
-						<th>Days left</th>
-						<th>Edit</th>
-						<th>Delete</th>
-					</tr>
-				</thead>
-				<tbody class="table_body">
-
-				</tbody>
-			</table>
-			<div class="modal_outer">
-				<div class="modal_inner">
-
-				</div>
+	<div class="container">
+		<header class="bg_heading">
+			<h1>Birthday app </h1>
+		</header>
+		<main>
+			<div class="heading">
+				<form action="/" class="form_filter">
+					<fieldset class="filter">
+						<label class="name-label" for="search">Filter by Name</label>
+						<input type="text" id="search_name" class="search" placeholder="Type a name">
+					</fieldset>
+					<fieldset class="filter">
+						<label class="month-label" for="select">Filter by Month: </label>
+						<select name="month" id="month_birthday" class="month">
+							<option value="">Select a month</option>
+							<option value="january">January</option>
+							<option value="february">February</option>
+							<option value="march">March</option>
+							<option value="april">April</option>
+							<option value="may">May</option>
+							<option value="june">June</option>
+							<option value="july">July</option>
+							<option value="august">August</option>
+							<option value="september">September</option>
+							<option value="october">October</option>
+							<option value="november">November</option>
+							<option value="december">December</option>
+						</select>
+					</fieldset>
+					<fieldset class="reset_field">
+						<button type="button" class="reset_filter"> Reset</button>
+					</fieldset>
+					<button type="button" class="btn-add">Add somebody</button>
+				</form>
 			</div>
-		</section>
-	</main>
+			<section>
+				<ul id="lists_container">
+	
+				</ul>
+				<div class="modal_outer">
+					<div class="modal_inner">
+	
+					</div>
+				</div>
+			</section>
+		</main>
+	</div>
 	<script src="/birthday-app.e31bb0bc.js" type="module"></script>
 </body>
 

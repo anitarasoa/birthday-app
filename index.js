@@ -17,12 +17,12 @@ export async function fetchPeople() {
     
    function editandDeleteButtons(e) {
         if (e.target.closest('button.edit')) {
-            const tableToEdit = e.target.closest('tr');
+            const tableToEdit = e.target.closest('li');
             const id = tableToEdit.dataset.id;
             displayEditBtn(id);
         }
         if (e.target.closest('button.delete')) {
-            const rowToDelete = e.target.closest('tr');
+            const rowToDelete = e.target.closest('li');
             const id = rowToDelete.dataset.id;
             displayDeleteBtn(id);
         }

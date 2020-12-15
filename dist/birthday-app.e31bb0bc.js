@@ -132,7 +132,7 @@ const modalOuter = document.querySelector('.modal_outer');
 exports.modalOuter = modalOuter;
 const modalInner = document.querySelector('.modal_inner');
 exports.modalInner = modalInner;
-const tbody = document.querySelector('tbody');
+const tbody = document.querySelector('#lists_container');
 exports.tbody = tbody;
 const filterNameInput = document.querySelector("#search_name");
 exports.filterNameInput = filterNameInput;
@@ -242,12 +242,12 @@ function displayPeople(people) {
     const dayLeft = Math.ceil(getTheDate / oneDay); //Create html for the data and put into dom.
 
     return `
-        <tr data-id="${person.id}" class="tr_container">
-            <td><img class="picture" src="${person.picture}" alt="${person.firstName + ' ' + person.lastName}"/></td>
-            <td>
+        <li data-id="${person.id}" class="tr_container">
+            <div><img class="picture" src="${person.picture}" alt="${person.firstName + ' ' + person.lastName}"/></div>
+            <div>
                 <span class="person_name">${person.lastName} ${person.firstName}</span>
                 <p class="person_birthday">
-                    Turns ${futureAge <= 1 ? futureAge + " " + "year" : futureAge + " " + "years"} old on the 
+                    Turns <span class="days"> ${futureAge}</span> on 
                     ${new Date(person.birthday).toLocaleString("en-US", {
       month: "long"
     })}
@@ -257,17 +257,16 @@ function displayPeople(people) {
     })}<sup>${nthDate(myDateDay)}</sup>
                     </time> 
                 </p>
-            </td>
-            <td class="person_fulldate"><time datetime="${fullDate}"> ${fullDate}</time></td>
-            <td class="person_birthday_date">${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" : dayLeft <= 1 ? dayLeft + " " + "day" : dayLeft + 'days'}
-            </td>
-            <td>
-                <button class="edit" data-id="${person.id}"> Edit</button>
-            </td>
-            <td>
-                <button class="delete" data-id="${person.id}"> Delete</button>
-            </td>
-        </tr>
+            </div>
+            <div class="last_section">
+                <p class="person_birthday_date">${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" : dayLeft <= 1 ? 'in' + " " + dayLeft + " " + "day" : "in" + " " + dayLeft + " " + 'days'}
+                </p>
+                <div>
+                    <button class="edit" data-id="${person.id}"> Edit</button>
+                    <button class="delete" data-id="${person.id}"> Delete</button>
+                </div>
+            </div>
+        </li>
         `;
   }).join('');
 }
@@ -300,13 +299,13 @@ async function fetchPeople() {
 
   function editandDeleteButtons(e) {
     if (e.target.closest('button.edit')) {
-      const tableToEdit = e.target.closest('tr');
+      const tableToEdit = e.target.closest('li');
       const id = tableToEdit.dataset.id;
       displayEditBtn(id);
     }
 
     if (e.target.closest('button.delete')) {
-      const rowToDelete = e.target.closest('tr');
+      const rowToDelete = e.target.closest('li');
       const id = rowToDelete.dataset.id;
       displayDeleteBtn(id);
     }
@@ -566,7 +565,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55426" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53911" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
