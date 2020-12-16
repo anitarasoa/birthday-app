@@ -1,4 +1,4 @@
-import { endpoint, buttonAdd, modalOuter, modalInner, tbody, filterNameInput, filterMonthBirthday, filterForm, resetBtn } from "./libs/element.js";
+import { endpoint, buttonAdd, modalOuter, modalInner, tbody, filterNameInput, filterMonthBirthday } from "./libs/element.js";
 import { handleClickOutside, destroyPopup, handleEscapeKey, closeModal } from './libs/utils.js';
 import { displayPeople } from './libs/display.js';
 
@@ -31,6 +31,12 @@ export async function fetchPeople() {
     function displayEditBtn(idToEdit) {
         const findPeople = people.find(people => people.id == idToEdit);
         console.log(findPeople);
+            let myDate = new Date(findPeople.birthday);
+            let myDateYear = myDate.getFullYear();
+            let myDateMonth = myDate.getMonth() + 1;
+            let myDateDay = myDate.getDate();
+            const fullDate = `${myDateDay} / ${myDateMonth} / ${myDateYear}`;
+
             const popup = document.createElement('form');
             popup.classList.add('popup');
             popup.insertAdjacentHTML('afterbegin', 
@@ -49,7 +55,7 @@ export async function fetchPeople() {
                 </fieldset>
                 <fieldset>
                     <label for="birthDay">Days</label>
-                    <input type="date" id="birthDay" name="birthDay" required>
+                    <input type="date" id="birthDay" value="${fullDate}" name="birthDay" required>
                 </fieldset>
                 <div class="buttons">
                     <button type="submit" class="save">Save changes</button>
@@ -74,7 +80,7 @@ export async function fetchPeople() {
                 findPeople.lastName = popup.lastName.value,
                 findPeople.firstName = popup.firstName.value,
                 findPeople.picture = popup.pictures.value,
-                findPeople.birthday = popup.birthDay.value, 
+                findPeople.birthday = popup.birthDay.value,
 
                 displayLists(findPeople);
                 destroyPopup(popup);
@@ -89,7 +95,7 @@ export async function fetchPeople() {
     function displayDeleteBtn(idToDelete) {
         return new Promise(async function(resolve) {
             const findPeopleToDelete = people.find(people => people.id == idToDelete);
-        console.log(findPeopleToDelete);
+            console.log(findPeopleToDelete);
 			// First we need to create a popp with all the fields in it
 			const delPopup = document.createElement('div');
 			delPopup.classList.add('delPopup');
@@ -212,10 +218,10 @@ export async function fetchPeople() {
         tbody.innerHTML = myHTML;
     }
 
-    const resetFilters = e => {
-        filterForm.reset();
-        displayLists();
-    };
+    // const resetFilters = e => {
+    //     filterForm.reset();
+    //     displayLists();
+    // };
 
 
     // //To get the items from the local storage
@@ -235,7 +241,7 @@ export async function fetchPeople() {
     
     //************* EVENT LISTENER **********
     buttonAdd.addEventListener('click', handleNewPeople);
-    resetBtn.addEventListener('click', resetFilters);
+    // resetBtn.addEventListener('click', resetFilters);
     filterNameInput.addEventListener('keyup', filterPersonByName);
     filterMonthBirthday.addEventListener('change', filterPersonMonth);
     tbody.addEventListener('updatedTheList', updateLocalStorage);

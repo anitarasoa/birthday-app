@@ -6,4 +6,4 @@ export const tbody = document.querySelector('#lists_container');
 export const filterNameInput = document.querySelector("#search_name");
 export const filterMonthBirthday = document.querySelector("#month_birthday");
 export const filterForm = document.querySelector('.form_filter');
-export const resetBtn = document.querySelector('.reset_filter');
+// export const resetBtn = document.querySelector('.reset_filter');

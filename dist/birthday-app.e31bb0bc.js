@@ -123,7 +123,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.resetBtn = exports.filterForm = exports.filterMonthBirthday = exports.filterNameInput = exports.tbody = exports.modalInner = exports.modalOuter = exports.buttonAdd = exports.endpoint = void 0;
+exports.filterForm = exports.filterMonthBirthday = exports.filterNameInput = exports.tbody = exports.modalInner = exports.modalOuter = exports.buttonAdd = exports.endpoint = void 0;
 const endpoint = "https://gist.githubusercontent.com/Pinois/e1c72b75917985dc77f5c808e876b67f/raw/93debb7463fbaaec29622221b8f9e719bd5b119f/birthdayPeople.json";
 exports.endpoint = endpoint;
 const buttonAdd = document.querySelector('.btn-add');
@@ -138,10 +138,9 @@ const filterNameInput = document.querySelector("#search_name");
 exports.filterNameInput = filterNameInput;
 const filterMonthBirthday = document.querySelector("#month_birthday");
 exports.filterMonthBirthday = filterMonthBirthday;
-const filterForm = document.querySelector('.form_filter');
+const filterForm = document.querySelector('.form_filter'); // export const resetBtn = document.querySelector('.reset_filter');
+
 exports.filterForm = filterForm;
-const resetBtn = document.querySelector('.reset_filter');
-exports.resetBtn = resetBtn;
 },{}],"libs/utils.js":[function(require,module,exports) {
 "use strict";
 
@@ -243,21 +242,23 @@ function displayPeople(people) {
 
     return `
         <li data-id="${person.id}" class="tr_container">
-            <div><img class="picture" src="${person.picture}" alt="${person.firstName + ' ' + person.lastName}"/></div>
-            <div>
-                <span class="person_name">${person.lastName} ${person.firstName}</span>
-                <p class="person_birthday">
-                    Turns <span class="days"> ${futureAge}</span> on 
-                    ${new Date(person.birthday).toLocaleString("en-US", {
+           <div class="first_section">
+                <div><img class="picture" src="${person.picture}" alt="${person.firstName + ' ' + person.lastName}"/></div>
+                <div class="first_section__content">
+                    <span class="person_name">${person.lastName} ${person.firstName}</span>
+                    <p class="person_birthday">
+                        Turns <span class="days"> ${futureAge}</span> on 
+                        ${new Date(person.birthday).toLocaleString("en-US", {
       month: "long"
     })}
-                    <time datetime="${fullDate}">
-                        ${new Date(person.birthday).toLocaleString("en-US", {
+                        <time datetime="${fullDate}">
+                            ${new Date(person.birthday).toLocaleString("en-US", {
       day: "numeric"
     })}<sup>${nthDate(myDateDay)}</sup>
-                    </time> 
-                </p>
-            </div>
+                        </time> 
+                    </p>
+                </div>
+           </div>
             <div class="last_section">
                 <p class="person_birthday_date">${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" : dayLeft <= 1 ? 'in' + " " + dayLeft + " " + "day" : "in" + " " + dayLeft + " " + 'days'}
                 </p>
@@ -314,6 +315,11 @@ async function fetchPeople() {
   function displayEditBtn(idToEdit) {
     const findPeople = people.find(people => people.id == idToEdit);
     console.log(findPeople);
+    let myDate = new Date(findPeople.birthday);
+    let myDateYear = myDate.getFullYear();
+    let myDateMonth = myDate.getMonth() + 1;
+    let myDateDay = myDate.getDate();
+    const fullDate = `${myDateDay} / ${myDateMonth} / ${myDateYear}`;
     const popup = document.createElement('form');
     popup.classList.add('popup');
     popup.insertAdjacentHTML('afterbegin', `   <h2 class="edit-heading">Edit <span class="person_to_edit">${findPeople.firstName} ${findPeople.lastName}</span></h2>
@@ -331,7 +337,7 @@ async function fetchPeople() {
                 </fieldset>
                 <fieldset>
                     <label for="birthDay">Days</label>
-                    <input type="date" id="birthDay" name="birthDay" required>
+                    <input type="date" id="birthDay" value="${fullDate}" name="birthDay" required>
                 </fieldset>
                 <div class="buttons">
                     <button type="submit" class="save">Save changes</button>
@@ -488,13 +494,11 @@ async function fetchPeople() {
     });
     const myHTML = (0, _display.displayPeople)(filterPerson);
     _element.tbody.innerHTML = myHTML;
-  };
-
-  const resetFilters = e => {
-    _element.filterForm.reset();
-
-    displayLists();
-  }; // //To get the items from the local storage
+  }; // const resetFilters = e => {
+  //     filterForm.reset();
+  //     displayLists();
+  // };
+  // //To get the items from the local storage
 
 
   const initialStorage = () => {
@@ -514,9 +518,8 @@ async function fetchPeople() {
   }; //************* EVENT LISTENER **********
 
 
-  _element.buttonAdd.addEventListener('click', handleNewPeople);
+  _element.buttonAdd.addEventListener('click', handleNewPeople); // resetBtn.addEventListener('click', resetFilters);
 
-  _element.resetBtn.addEventListener('click', resetFilters);
 
   _element.filterNameInput.addEventListener('keyup', filterPersonByName);
 
@@ -565,7 +568,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53911" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49983" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
