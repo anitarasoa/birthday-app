@@ -124,7 +124,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.filterForm = exports.filterMonthBirthday = exports.filterNameInput = exports.tbody = exports.modalInner = exports.modalOuter = exports.buttonAdd = exports.endpoint = void 0;
-const endpoint = "https://gist.githubusercontent.com/Pinois/e1c72b75917985dc77f5c808e876b67f/raw/93debb7463fbaaec29622221b8f9e719bd5b119f/birthdayPeople.json";
+const endpoint = "https://gist.githubusercontent.com/Pinois/e1c72b75917985dc77f5c808e876b67f/raw/b17e08696906abeaac8bc260f57738eaa3f6abb1/birthdayPeople.json";
 exports.endpoint = endpoint;
 const buttonAdd = document.querySelector('.btn-add');
 exports.buttonAdd = buttonAdd;
@@ -322,27 +322,35 @@ async function fetchPeople() {
     const fullDate = `${myDateDay} / ${myDateMonth} / ${myDateYear}`;
     const popup = document.createElement('form');
     popup.classList.add('popup');
-    popup.insertAdjacentHTML('afterbegin', `   <h2 class="edit-heading">Edit <span class="person_to_edit">${findPeople.firstName} ${findPeople.lastName}</span></h2>
-                <fieldset>
-                    <label for="pictures">Picture</label>
-                    <input type="url" id="pictures" name="pictures" value="${findPeople.picture}" required>
-                </fieldset>
-                <fieldset>
-                    <label for="lastName">Last name</label>
-                    <input type="text" id="lastName" name="lastName" value="${findPeople.lastName}" required>
-                </fieldset>
-                <fieldset>
-                    <label for="firstName">First name</label>
-                    <input type="text" id="firstName" name="firstName" value="${findPeople.firstName}" required>
-                </fieldset>
-                <fieldset>
-                    <label for="birthDay">Days</label>
-                    <input type="date" id="birthDay" value="${fullDate}" name="birthDay" required>
-                </fieldset>
-                <div class="buttons">
-                    <button type="submit" class="save">Save changes</button>
-                    <button type="button" class="cancelEdit cancel">Cancel</button>
+    popup.insertAdjacentHTML('afterbegin', `
+            <div class="container_container">
+                <div class="edit_container">
+                    <h3 class="edit-heading">Edit <span class="person_to_edit">${findPeople.firstName} ${findPeople.lastName}</span></h3>
+                    <div class="edit_fieldset">
+                        <fieldset>
+                            <label for="pictures">Picture</label>
+                            <input type="url" id="pictures" name="pictures" value="${findPeople.picture}" required>
+                        </fieldset>
+                        <fieldset>
+                            <label for="lastName">Last name</label>
+                            <input type="text" id="lastName" name="lastName" value="${findPeople.lastName}" required>
+                        </fieldset>
+                        <fieldset>
+                            <label for="firstName">First name</label>
+                            <input type="text" id="firstName" name="firstName" value="${findPeople.firstName}" required>
+                        </fieldset>
+                        <fieldset>
+                            <label for="birthDay">Days</label>
+                            <input type="date" id="birthDay" value="${fullDate}" name="birthDay" required>
+                        </fieldset>
+                    </div>
+                    <div class="buttons">
+                        <button type="submit" class="save">Save changes</button>
+                        <button type="button" class="cancelEdit cancel">Cancel</button>
+                    </div>
+                    <button class="close_edit"></button>
                 </div>
+            </div>  
             `);
     window.addEventListener('click', e => {
       if (e.target.closest('button.cancelEdit')) {
@@ -351,6 +359,11 @@ async function fetchPeople() {
     });
     window.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
+        (0, _utils.destroyPopup)(popup);
+      }
+    });
+    window.addEventListener('click', e => {
+      if (e.target.closest('button.close_edit')) {
         (0, _utils.destroyPopup)(popup);
       }
     });
@@ -377,11 +390,15 @@ async function fetchPeople() {
       const delPopup = document.createElement('div');
       delPopup.classList.add('delPopup');
       delPopup.insertAdjacentHTML('afterbegin', `	
-                <h2 class="delete_heading">Are you sure that you want to delete <span class="person_to_delete">${findPeopleToDelete.firstName} ${findPeopleToDelete.lastName}?</span></h2>
-                <div class="deletebtns">
-                    <button type="button" class="yes">yes</button>
-                    <button type="button" class="cancelDelete cancel">Cancel</button>
-                </div>
+            <div class="delete_container_container">
+               <div class="delete_container">
+                    <h2 class="delete_heading">Are you sure that you want to delete <span class="person_to_delete">${findPeopleToDelete.firstName} ${findPeopleToDelete.lastName}?</span></h2>
+                    <div class="deletebtns">
+                        <button type="button" class="yes">yes</button>
+                        <button type="button" class="cancelDelete cancel">Cancel</button>
+                    </div>
+               </div>
+            </div>
             `);
       delPopup.classList.add('open');
       window.addEventListener('click', e => {
@@ -415,29 +432,31 @@ async function fetchPeople() {
 
   const handleNewPeople = () => {
     _element.modalInner.innerHTML = `
-        <form action="" class="form_submit">
-            <h2 class="add_heading">Add new people</h2>
-            <fieldset>
-                <label for="picture">Picture</label>
-                <input type="url" id="picture" name="picture" required>
-            </fieldset>
-            <fieldset>
-                <label for="lastname">Last name</label>
-                <input type="text" id="lastname" name="lastname" required>
-            </fieldset>
-            <fieldset>
-                <label for="firstname">First name</label>
-                <input type="text" id="firstname" name="firstname" required>
-            </fieldset>
-            <fieldset>
-                <label for="birthday">Days</label>
-                <input type="date" id="birthday" name="birthday" required>
-            </fieldset>
-            <div class="buttons">
-                <button type="submit" class="submit">Submit</button>
-                <button type="button" class="cancel-add cancel">Cancel</button>
-            </div>
+        <div class="modal_container">
+            <form action="" class="form_submit">
+                <h2 class="add_heading">Add new people</h2>
+                <fieldset>
+                    <label for="picture">Picture</label>
+                    <input type="url" id="picture" name="picture" required>
+                </fieldset>
+                <fieldset>
+                    <label for="lastname">Last name</label>
+                    <input type="text" id="lastname" name="lastname" required>
+                </fieldset>
+                <fieldset>
+                    <label for="firstname">First name</label>
+                    <input type="text" id="firstname" name="firstname" required>
+                </fieldset>
+                <fieldset>
+                    <label for="birthday">Days</label>
+                    <input type="date" id="birthday" name="birthday" required>
+                </fieldset>
+                <div class="buttons">
+                    <button type="submit" class="submit">Submit</button>
+                    <button type="button" class="cancel-add cancel">Cancel</button>
+                </div>
             </form>
+        </div>
         `;
 
     _element.modalOuter.classList.add('open');

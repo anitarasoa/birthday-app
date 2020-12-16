@@ -1,5 +1,5 @@
 html {
-    font-family: 'Rubik', Arial, Helvetica, sans-serif;
+    font-family: 'Rubik', sans-serif;
 }
 
 body {
@@ -116,7 +116,7 @@ ul {
 
 .modal_outer{
     display: grid;
-    background-color: rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.8);
     position: fixed;
     height: 100vh;
     width: 100vw;
@@ -134,17 +134,31 @@ ul {
 }
 
 .modal_inner {
-    padding: 1rem;
-    width: 400px;
-    height: 500px;
+    width: 100vw;
+    height: 100vh;
     border-radius: 5px;
     background: white;
     transform: translateY(-100%);
     transition: transform 0.2s;
 }
 
+.modal_container {
+    width: 400px;
+    height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modal_inner fieldset {
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 8px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .modal_outer.open .modal_inner {
-    transform: translateY(0);
+    transform: translate(0%, 22%);
 }
 
 fieldset {
@@ -154,7 +168,7 @@ fieldset {
 }
 
 .modal_outer.open fieldset input, .popup.open fieldset input {
-    height: 50px;
+    height: 40px;
     width: 264px;
     border: none;
     background: #D8EEFE;
@@ -167,11 +181,11 @@ fieldset {
     font-family: 'Rubik';
     font-style: normal;
     font-weight: 500;
-    font-size: 48px;
-    line-height: 57px;
+    font-size: 36px;
+    line-height: 43px;
     color: #094067;
     margin: 0;
-    padding-bottom: 26px;
+    padding-top: 20px;
 }
 
 .save,
@@ -185,29 +199,22 @@ fieldset {
     color: #FFFFFE;
     background: #EF4565;
     border-radius: 5px;
-    padding: 14px 21px;
+    padding: 10px 21px;
     border: none;
 }
 
 .delPopup,
 .popup {
-	background: #FFFFFF;
+	background: rgba(255, 255, 255, 0.8);
     border-radius: 5px;
 	position: fixed;
-	height: 100%;
-	width: 100%;
+	height: 100vh;
+	width: 100vw;
 	top: 0;
-	transform: translate(50%, -100%);
+	transform: translate(0%, -100%);
 	--opacity: 0;
     opacity: var(--opacity);
-    padding: 22px;
-}
-
-.delPopup {
-    height: 300px;
-    width: 400px;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-top: 120px;
 }
 
 .delPopup h3,
@@ -224,7 +231,7 @@ fieldset {
 }
 
 .delPopup.open {
-    transform: translate(50%, 50%);
+    transform: translate(0%, 0%);
 }
 
 .popup.open fieldset {
@@ -233,7 +240,9 @@ fieldset {
     flex-direction: column;
     border: none;
     padding: 0;
-    margin-block-end: 16px;
+    margin-block-end: 5px;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 label {
@@ -283,7 +292,8 @@ img {
     border: 2px solid #5F6C7B;
     box-sizing: border-box;
     border-radius: 5px;
-    padding: 14px 21px;
+    padding: 10px 21px;
+    margin-left: 20px;
 }
 
 
@@ -292,7 +302,7 @@ img {
 .buttons {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    /* justify-content: space-between; */
 }
 
 .deletebtns {
@@ -330,7 +340,53 @@ ul li + li {
     padding-top: 16px;
 }
 
+.close_edit {
+    background-image: url('./assets/close-edit.svg');
+    background-size: 2rem;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 20%;
+    left: 90%;
+}
+
+.container_container {
+    background-color: #FFFFFF;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.delete_container_container {
+    background-color: #FFFFFF;
+    width: 100vw;
+    height: 50vh;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin-top: 32px;
+}
+
+.delete_container {
+    grid-column: 2 / 5;
+}
+
+.edit_container {
+    border-radius: 5px;
+    grid-column: 2 / 4;
+}
+
 @media (min-width: 780px) {
+    .add_heading,
+    .edit-heading,
+    .delete_heading {
+        font-family: 'Rubik';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 48px;
+        line-height: 57px;
+        color: #094067;
+        margin: 0;
+        padding-top: 20px;
+    }
     .container {
         max-width: 779px;
         margin-left: auto;

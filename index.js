@@ -40,27 +40,35 @@ export async function fetchPeople() {
             const popup = document.createElement('form');
             popup.classList.add('popup');
             popup.insertAdjacentHTML('afterbegin', 
-            `   <h2 class="edit-heading">Edit <span class="person_to_edit">${findPeople.firstName} ${findPeople.lastName}</span></h2>
-                <fieldset>
-                    <label for="pictures">Picture</label>
-                    <input type="url" id="pictures" name="pictures" value="${findPeople.picture}" required>
-                </fieldset>
-                <fieldset>
-                    <label for="lastName">Last name</label>
-                    <input type="text" id="lastName" name="lastName" value="${findPeople.lastName}" required>
-                </fieldset>
-                <fieldset>
-                    <label for="firstName">First name</label>
-                    <input type="text" id="firstName" name="firstName" value="${findPeople.firstName}" required>
-                </fieldset>
-                <fieldset>
-                    <label for="birthDay">Days</label>
-                    <input type="date" id="birthDay" value="${fullDate}" name="birthDay" required>
-                </fieldset>
-                <div class="buttons">
-                    <button type="submit" class="save">Save changes</button>
-                    <button type="button" class="cancelEdit cancel">Cancel</button>
+            `
+            <div class="container_container">
+                <div class="edit_container">
+                    <h3 class="edit-heading">Edit <span class="person_to_edit">${findPeople.firstName} ${findPeople.lastName}</span></h3>
+                    <div class="edit_fieldset">
+                        <fieldset>
+                            <label for="pictures">Picture</label>
+                            <input type="url" id="pictures" name="pictures" value="${findPeople.picture}" required>
+                        </fieldset>
+                        <fieldset>
+                            <label for="lastName">Last name</label>
+                            <input type="text" id="lastName" name="lastName" value="${findPeople.lastName}" required>
+                        </fieldset>
+                        <fieldset>
+                            <label for="firstName">First name</label>
+                            <input type="text" id="firstName" name="firstName" value="${findPeople.firstName}" required>
+                        </fieldset>
+                        <fieldset>
+                            <label for="birthDay">Days</label>
+                            <input type="date" id="birthDay" value="${fullDate}" name="birthDay" required>
+                        </fieldset>
+                    </div>
+                    <div class="buttons">
+                        <button type="submit" class="save">Save changes</button>
+                        <button type="button" class="cancelEdit cancel">Cancel</button>
+                    </div>
+                    <button class="close_edit"></button>
                 </div>
+            </div>  
             `);
     
             window.addEventListener('click', e => {
@@ -72,6 +80,12 @@ export async function fetchPeople() {
             window.addEventListener('keydown', e => {
                 if (e.key === 'Escape') {
                     destroyPopup(popup);                }
+            })
+
+            window.addEventListener('click', e => {
+                if (e.target.closest('button.close_edit')) {
+                    destroyPopup(popup);
+                }
             })
     
             popup.addEventListener('submit', (e) => {
@@ -101,11 +115,15 @@ export async function fetchPeople() {
 			delPopup.classList.add('delPopup');
 			delPopup.insertAdjacentHTML('afterbegin',
             `	
-                <h2 class="delete_heading">Are you sure that you want to delete <span class="person_to_delete">${findPeopleToDelete.firstName} ${findPeopleToDelete.lastName}?</span></h2>
-                <div class="deletebtns">
-                    <button type="button" class="yes">yes</button>
-                    <button type="button" class="cancelDelete cancel">Cancel</button>
-                </div>
+            <div class="delete_container_container">
+               <div class="delete_container">
+                    <h2 class="delete_heading">Are you sure that you want to delete <span class="person_to_delete">${findPeopleToDelete.firstName} ${findPeopleToDelete.lastName}?</span></h2>
+                    <div class="deletebtns">
+                        <button type="button" class="yes">yes</button>
+                        <button type="button" class="cancelDelete cancel">Cancel</button>
+                    </div>
+               </div>
+            </div>
             `);
             delPopup.classList.add('open');
 
@@ -138,29 +156,31 @@ export async function fetchPeople() {
     const handleNewPeople = () => {
         modalInner.innerHTML =    
         `
-        <form action="" class="form_submit">
-            <h2 class="add_heading">Add new people</h2>
-            <fieldset>
-                <label for="picture">Picture</label>
-                <input type="url" id="picture" name="picture" required>
-            </fieldset>
-            <fieldset>
-                <label for="lastname">Last name</label>
-                <input type="text" id="lastname" name="lastname" required>
-            </fieldset>
-            <fieldset>
-                <label for="firstname">First name</label>
-                <input type="text" id="firstname" name="firstname" required>
-            </fieldset>
-            <fieldset>
-                <label for="birthday">Days</label>
-                <input type="date" id="birthday" name="birthday" required>
-            </fieldset>
-            <div class="buttons">
-                <button type="submit" class="submit">Submit</button>
-                <button type="button" class="cancel-add cancel">Cancel</button>
-            </div>
+        <div class="modal_container">
+            <form action="" class="form_submit">
+                <h2 class="add_heading">Add new people</h2>
+                <fieldset>
+                    <label for="picture">Picture</label>
+                    <input type="url" id="picture" name="picture" required>
+                </fieldset>
+                <fieldset>
+                    <label for="lastname">Last name</label>
+                    <input type="text" id="lastname" name="lastname" required>
+                </fieldset>
+                <fieldset>
+                    <label for="firstname">First name</label>
+                    <input type="text" id="firstname" name="firstname" required>
+                </fieldset>
+                <fieldset>
+                    <label for="birthday">Days</label>
+                    <input type="date" id="birthday" name="birthday" required>
+                </fieldset>
+                <div class="buttons">
+                    <button type="submit" class="submit">Submit</button>
+                    <button type="button" class="cancel-add cancel">Cancel</button>
+                </div>
             </form>
+        </div>
         `;
         modalOuter.classList.add('open');
     }

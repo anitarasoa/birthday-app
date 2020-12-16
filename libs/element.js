@@ -1,4 +1,4 @@
-export const endpoint = "https://gist.githubusercontent.com/Pinois/e1c72b75917985dc77f5c808e876b67f/raw/93debb7463fbaaec29622221b8f9e719bd5b119f/birthdayPeople.json";
+export const endpoint = "https://gist.githubusercontent.com/Pinois/e1c72b75917985dc77f5c808e876b67f/raw/b17e08696906abeaac8bc260f57738eaa3f6abb1/birthdayPeople.json";
 export const buttonAdd = document.querySelector('.btn-add');
 export const modalOuter = document.querySelector('.modal_outer');
 export const modalInner = document.querySelector('.modal_inner');
