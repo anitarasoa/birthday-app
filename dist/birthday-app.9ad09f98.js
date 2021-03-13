@@ -189,7 +189,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./assets\\edit.svg":[["edit.4c7be04f.svg","assets/edit.svg"],"assets/edit.svg"],"./assets\\delete.svg":[["delete.3b390d6e.svg","assets/delete.svg"],"assets/delete.svg"],"./assets\\close-edit.svg":[["close-edit.1cde4bff.svg","assets/close-edit.svg"],"assets/close-edit.svg"],"_css_loader":"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./assets\\close-edit.svg":[["close-edit.1cde4bff.svg","assets/close-edit.svg"],"assets/close-edit.svg"],"./assets\\edit.svg":[["edit.4c7be04f.svg","assets/edit.svg"],"assets/edit.svg"],"./assets\\delete.svg":[["delete.3b390d6e.svg","assets/delete.svg"],"assets/delete.svg"],"_css_loader":"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -217,7 +217,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49983" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59652" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

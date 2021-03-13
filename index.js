@@ -180,6 +180,7 @@ export async function fetchPeople() {
                     <button type="button" class="cancel-add cancel">Cancel</button>
                 </div>
             </form>
+            <button class="close_modal"></button>
         </div>
         `;
         modalOuter.classList.add('open');
@@ -206,6 +207,12 @@ export async function fetchPeople() {
 
     const cancelAddNewPeople = (e) => {
         if (e.target.closest('button.cancel-add')) {
+            closeModal();
+        }
+    }
+
+    const closeButton = (e) => {
+        if(e.target.closest('button.close_modal')) {
             closeModal();
         }
     }
@@ -238,12 +245,6 @@ export async function fetchPeople() {
         tbody.innerHTML = myHTML;
     }
 
-    // const resetFilters = e => {
-    //     filterForm.reset();
-    //     displayLists();
-    // };
-
-
     // //To get the items from the local storage
     const initialStorage = () => {
         const lsItems = JSON.parse(localStorage.getItem('people'));
@@ -267,6 +268,7 @@ export async function fetchPeople() {
     tbody.addEventListener('updatedTheList', updateLocalStorage);
     modalInner.addEventListener('submit', addNewPeople);
     modalInner.addEventListener('click', cancelAddNewPeople);
+    modalInner.addEventListener('click', closeButton);
     modalOuter.addEventListener('click', handleClickOutside);
     tbody.addEventListener('click', editandDeleteButtons);
     initialStorage();

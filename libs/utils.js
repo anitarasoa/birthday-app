@@ -1,10 +1,6 @@
 import { modalOuter,  filterForm } from '../libs/element.js';
 import { fetchPeople } from '../index.js';
 
-// export const resetFilters = e => {
-//     filterForm.reset();
-//     fetchPeople();
-// };
 
 function wait(ms = 0) {
     return new Promise(resolve => setTimeout(resolve, ms));

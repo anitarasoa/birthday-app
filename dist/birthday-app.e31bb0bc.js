@@ -138,8 +138,7 @@ const filterNameInput = document.querySelector("#search_name");
 exports.filterNameInput = filterNameInput;
 const filterMonthBirthday = document.querySelector("#month_birthday");
 exports.filterMonthBirthday = filterMonthBirthday;
-const filterForm = document.querySelector('.form_filter'); // export const resetBtn = document.querySelector('.reset_filter');
-
+const filterForm = document.querySelector('.form_filter');
 exports.filterForm = filterForm;
 },{}],"libs/utils.js":[function(require,module,exports) {
 "use strict";
@@ -154,10 +153,6 @@ var _element = require("../libs/element.js");
 
 var _index = require("../index.js");
 
-// export const resetFilters = e => {
-//     filterForm.reset();
-//     fetchPeople();
-// };
 function wait(ms = 0) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -456,6 +451,7 @@ async function fetchPeople() {
                     <button type="button" class="cancel-add cancel">Cancel</button>
                 </div>
             </form>
+            <button class="close_modal"></button>
         </div>
         `;
 
@@ -489,6 +485,12 @@ async function fetchPeople() {
     }
   };
 
+  const closeButton = e => {
+    if (e.target.closest('button.close_modal')) {
+      (0, _utils.closeModal)();
+    }
+  };
+
   const filterPersonByName = () => {
     // Get the value of the input
     const input = _element.filterNameInput.value;
@@ -513,11 +515,7 @@ async function fetchPeople() {
     });
     const myHTML = (0, _display.displayPeople)(filterPerson);
     _element.tbody.innerHTML = myHTML;
-  }; // const resetFilters = e => {
-  //     filterForm.reset();
-  //     displayLists();
-  // };
-  // //To get the items from the local storage
+  }; // //To get the items from the local storage
 
 
   const initialStorage = () => {
@@ -549,6 +547,8 @@ async function fetchPeople() {
   _element.modalInner.addEventListener('submit', addNewPeople);
 
   _element.modalInner.addEventListener('click', cancelAddNewPeople);
+
+  _element.modalInner.addEventListener('click', closeButton);
 
   _element.modalOuter.addEventListener('click', _utils.handleClickOutside);
 
@@ -587,7 +587,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49983" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59652" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

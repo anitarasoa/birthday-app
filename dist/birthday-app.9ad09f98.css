@@ -109,6 +109,10 @@ label,
     color: #EF4565;
 }
 
+.person_to_delete {
+    color: #EF4565;
+}
+
 ul {
     list-style: none;
     padding-bottom: 63px;
@@ -134,12 +138,13 @@ ul {
 }
 
 .modal_inner {
-    width: 100vw;
+    width: 750px;
     height: 100vh;
     border-radius: 5px;
     background: white;
     transform: translateY(-100%);
     transition: transform 0.2s;
+    /* background-position: center; */
 }
 
 .modal_container {
@@ -147,6 +152,16 @@ ul {
     height: 500px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.close_modal {
+    background-image: url('/close-edit.1cde4bff.svg');
+    background-size: 2rem;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 0%;
+    left: 90%;
 }
 
 .modal_inner fieldset {
@@ -158,7 +173,7 @@ ul {
 }
 
 .modal_outer.open .modal_inner {
-    transform: translate(0%, 22%);
+    transform: translate(0%, 20%);
 }
 
 fieldset {
@@ -352,8 +367,9 @@ ul li + li {
 
 .container_container {
     background-color: #FFFFFF;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .delete_container_container {
