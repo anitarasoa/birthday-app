@@ -159,6 +159,7 @@ function wait(ms = 0) {
 
 async function destroyPopup(popup) {
   popup.classList.remove('open');
+  document.body.style.overflow = "visible";
   await wait(500);
   popup.remove(); //remove it from the javascript memory
 
@@ -169,6 +170,8 @@ async function destroyPopup(popup) {
 
 const closeModal = () => {
   _element.modalOuter.classList.remove('open');
+
+  document.body.style.overflow = "visible";
 }; //Close modal when you click outside
 
 
@@ -199,9 +202,25 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.displayPeople = displayPeople;
 
+function calculateDays(day) {
+  var today = new Date();
+  let myDate = new Date(day.birthday);
+  let myDateMonth = myDate.getMonth();
+  let myDateDay = myDate.getDate();
+  var bday = new Date(today.getFullYear(), myDateMonth - 1, myDateDay);
+
+  if (today.getTime() > bday.getTime()) {
+    bday.setFullYear(bday.getFullYear() + 1);
+  }
+
+  var diff = bday.getTime() - today.getTime();
+  var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  return days;
+}
+
 function displayPeople(people) {
-  return people.sort(function (a, b) {
-    return new Date(a.birthday).getMonth() - new Date(b.birthday).getMonth();
+  return people.sort((a, b) => {
+    return calculateDays(a) - calculateDays(b);
   }).map(person => {
     function nthDate(day) {
       if (day > 3 && day < 21) return "th";
@@ -227,13 +246,15 @@ function displayPeople(people) {
     let myDateMonth = myDate.getMonth() + 1;
     let myDateDay = myDate.getDate();
     const fullDate = `${myDateDay}${nthDate(myDateDay)} / ${myDateMonth} / ${myDateYear}`;
-    const futureAge = today.getFullYear() - myDateYear; // Counting how many days left untill the person's birthday
+    const futureAge = today.getFullYear() - myDateYear;
+    var bday = new Date(today.getFullYear(), myDateMonth - 1, myDateDay);
 
-    const momentYear = today.getFullYear();
-    const birthDayDate = new Date(momentYear, myDateMonth - 1, myDateDay);
-    let oneDay = 1000 * 60 * 60 * 24;
-    const getTheDate = birthDayDate.getTime() - today.getTime();
-    const dayLeft = Math.ceil(getTheDate / oneDay); //Create html for the data and put into dom.
+    if (today.getTime() > bday.getTime()) {
+      bday.setFullYear(bday.getFullYear() + 1);
+    }
+
+    var diff = bday.getTime() - today.getTime();
+    var days = Math.floor(diff / (1000 * 60 * 60 * 24)); //Create html for the data and put into dom.
 
     return `
         <li data-id="${person.id}" class="tr_container">
@@ -255,7 +276,7 @@ function displayPeople(people) {
                 </div>
            </div>
             <div class="last_section">
-                <p class="person_birthday_date">${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" : dayLeft <= 1 ? 'in' + " " + dayLeft + " " + "day" : "in" + " " + dayLeft + " " + 'days'}
+                <p class="person_birthday_date">${days > 0 ? 'in' + " " + days + " " + 'days' : "Happy birthday"}
                 </p>
                 <div>
                     <button class="edit" data-id="${person.id}"> Edit</button>
@@ -308,13 +329,9 @@ async function fetchPeople() {
   }
 
   function displayEditBtn(idToEdit) {
+    const maxDate = new Date().toISOString().slice(0, 10);
     const findPeople = people.find(people => people.id == idToEdit);
-    console.log(findPeople);
-    let myDate = new Date(findPeople.birthday);
-    let myDateYear = myDate.getFullYear();
-    let myDateMonth = myDate.getMonth() + 1;
-    let myDateDay = myDate.getDate();
-    const fullDate = `${myDateDay} / ${myDateMonth} / ${myDateYear}`;
+    let fullDate = new Date(findPeople.birthday).toISOString().slice(0, 10);
     const popup = document.createElement('form');
     popup.classList.add('popup');
     popup.insertAdjacentHTML('afterbegin', `
@@ -336,7 +353,7 @@ async function fetchPeople() {
                         </fieldset>
                         <fieldset>
                             <label for="birthDay">Days</label>
-                            <input type="date" id="birthDay" value="${fullDate}" name="birthDay" required>
+                            <input type="date" id="birthDay" max=${maxDate} value="${fullDate}" name="birthDay" required>
                         </fieldset>
                     </div>
                     <div class="buttons">
@@ -373,6 +390,7 @@ async function fetchPeople() {
     });
     document.body.appendChild(popup);
     popup.classList.add('open');
+    document.body.style.overflow = "hidden";
   }
 
   ; //Html for the delete button
@@ -422,10 +440,12 @@ async function fetchPeople() {
       });
       document.body.appendChild(delPopup);
       delPopup.classList.add('open');
+      document.body.style.overflow = "hidden";
     });
   }
 
   const handleNewPeople = () => {
+    const maxDate = new Date().toISOString().slice(0, 10);
     _element.modalInner.innerHTML = `
         <div class="modal_container">
             <form action="" class="form_submit">
@@ -444,7 +464,7 @@ async function fetchPeople() {
                 </fieldset>
                 <fieldset>
                     <label for="birthday">Days</label>
-                    <input type="date" id="birthday" name="birthday" required>
+                    <input type="date" id="birthday" max=${maxDate} name="birthday" required>
                 </fieldset>
                 <div class="buttons">
                     <button type="submit" class="submit">Submit</button>
@@ -456,6 +476,8 @@ async function fetchPeople() {
         `;
 
     _element.modalOuter.classList.add('open');
+
+    document.body.style.overflow = "hidden";
   }; // Add new person to the list
 
 
@@ -491,18 +513,17 @@ async function fetchPeople() {
     }
   };
 
-  const filterPersonByName = () => {
+  const filterPersonByName = people => {
     // Get the value of the input
     const input = _element.filterNameInput.value;
     const inputSearch = input.toLowerCase(); // Filter the list by the firstname or lastname
 
     const searchPerson = people.filter(person => person.lastName.toLowerCase().includes(inputSearch) || person.firstName.toLowerCase().includes(inputSearch));
-    const myHTML = (0, _display.displayPeople)(searchPerson);
-    _element.tbody.innerHTML = myHTML;
+    return searchPerson;
   }; // Filter by month
 
 
-  const filterPersonMonth = e => {
+  const filterPersonMonth = people => {
     // Get the value of the select input
     const select = _element.filterMonthBirthday.value;
     const filterPerson = people.filter(person => {
@@ -513,7 +534,13 @@ async function fetchPeople() {
 
       return getMonthOfBirth.toLowerCase().includes(select.toLowerCase());
     });
-    const myHTML = (0, _display.displayPeople)(filterPerson);
+    return filterPerson;
+  };
+
+  const filterNameAndMonth = () => {
+    const filteredByName = filterPersonByName(people);
+    const filtedByNameAndMonth = filterPersonMonth(filteredByName);
+    const myHTML = (0, _display.displayPeople)(filtedByNameAndMonth);
     _element.tbody.innerHTML = myHTML;
   }; // //To get the items from the local storage
 
@@ -538,9 +565,9 @@ async function fetchPeople() {
   _element.buttonAdd.addEventListener('click', handleNewPeople); // resetBtn.addEventListener('click', resetFilters);
 
 
-  _element.filterNameInput.addEventListener('keyup', filterPersonByName);
+  _element.filterNameInput.addEventListener('keyup', filterNameAndMonth);
 
-  _element.filterMonthBirthday.addEventListener('change', filterPersonMonth);
+  _element.filterMonthBirthday.addEventListener('change', filterNameAndMonth);
 
   _element.tbody.addEventListener('updatedTheList', updateLocalStorage);
 
@@ -587,7 +614,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59652" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57476" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

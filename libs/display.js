@@ -1,7 +1,21 @@
+function calculateDays(day) {
+    var today = new Date();
+    let myDate = new Date(day.birthday);
+    let myDateMonth = myDate.getMonth();
+    let myDateDay = myDate.getDate();
+    var bday = new Date(today.getFullYear(),myDateMonth-1,myDateDay);
+    if( today.getTime() > bday.getTime()) {
+        bday.setFullYear(bday.getFullYear()+1);
+    }
+    var diff = bday.getTime()-today.getTime();
+    var days = Math.floor(diff/(1000*60*60*24));
+    return days;
+}
+
 export function displayPeople(people) {
     return people
-        .sort( function(a, b) {
-            return new Date(a.birthday).getMonth() - new Date(b.birthday).getMonth();
+        .sort((a, b) => {
+            return calculateDays(a) - calculateDays(b);
         })
         .map((person) => {
         function nthDate(day) {
@@ -20,13 +34,13 @@ export function displayPeople(people) {
         let myDateDay = myDate.getDate();
         const fullDate = `${myDateDay}${nthDate(myDateDay)} / ${myDateMonth} / ${myDateYear}`;
         const futureAge = today.getFullYear() - myDateYear;
-
-        // Counting how many days left untill the person's birthday
-        const momentYear = today.getFullYear();
-        const birthDayDate = new Date(momentYear, myDateMonth - 1, myDateDay );
-        let oneDay = 1000 * 60 * 60 * 24;
-        const getTheDate = birthDayDate.getTime() - today.getTime();
-        const dayLeft = Math.ceil(getTheDate / oneDay);
+    
+        var bday = new Date(today.getFullYear(),myDateMonth-1,myDateDay);
+        if( today.getTime() > bday.getTime()) {
+            bday.setFullYear(bday.getFullYear()+1);
+        }
+        var diff = bday.getTime()-today.getTime();
+        var days = Math.floor(diff/(1000*60*60*24));
 
         //Create html for the data and put into dom.
         return `
@@ -49,9 +63,7 @@ export function displayPeople(people) {
                 </div>
            </div>
             <div class="last_section">
-                <p class="person_birthday_date">${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" :
-                    dayLeft <= 1 ? 'in' + " " + dayLeft + " " + "day" : "in" + " " +
-                    dayLeft + " " + 'days'}
+                <p class="person_birthday_date">${days > 0 ? 'in' + " " + days + " " + 'days' : "Happy birthday"}
                 </p>
                 <div>
                     <button class="edit" data-id="${person.id}"> Edit</button>

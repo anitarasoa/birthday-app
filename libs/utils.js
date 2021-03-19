@@ -8,6 +8,7 @@ function wait(ms = 0) {
 
 export async function destroyPopup(popup) {
     popup.classList.remove('open');
+    document.body.style.overflow = "visible";
     await wait(500);
     popup.remove();
     //remove it from the javascript memory
@@ -17,6 +18,7 @@ export async function destroyPopup(popup) {
 //Close modal 
 export const closeModal = () => {
     modalOuter.classList.remove('open');
+    document.body.style.overflow = "visible";
 }
 
 //Close modal when you click outside

@@ -1,4 +1,4 @@
-import { endpoint, buttonAdd, modalOuter, modalInner, tbody, filterNameInput, filterMonthBirthday } from "./libs/element.js";
+import { endpoint, buttonAdd, modalOuter, modalInner, tbody, filterNameInput, filterMonthBirthday, filterForm } from "./libs/element.js";
 import { handleClickOutside, destroyPopup, handleEscapeKey, closeModal } from './libs/utils.js';
 import { displayPeople } from './libs/display.js';
 
@@ -29,13 +29,9 @@ export async function fetchPeople() {
     }
 
     function displayEditBtn(idToEdit) {
+        const maxDate = new Date().toISOString().slice(0,10);
         const findPeople = people.find(people => people.id == idToEdit);
-        console.log(findPeople);
-            let myDate = new Date(findPeople.birthday);
-            let myDateYear = myDate.getFullYear();
-            let myDateMonth = myDate.getMonth() + 1;
-            let myDateDay = myDate.getDate();
-            const fullDate = `${myDateDay} / ${myDateMonth} / ${myDateYear}`;
+            let fullDate = new Date(findPeople.birthday).toISOString().slice(0, 10);
 
             const popup = document.createElement('form');
             popup.classList.add('popup');
@@ -59,7 +55,7 @@ export async function fetchPeople() {
                         </fieldset>
                         <fieldset>
                             <label for="birthDay">Days</label>
-                            <input type="date" id="birthDay" value="${fullDate}" name="birthDay" required>
+                            <input type="date" id="birthDay" max=${maxDate} value="${fullDate}" name="birthDay" required>
                         </fieldset>
                     </div>
                     <div class="buttons">
@@ -103,6 +99,7 @@ export async function fetchPeople() {
     
             document.body.appendChild(popup);
             popup.classList.add('open');
+            document.body.style.overflow = "hidden";
     };    
 
     //Html for the delete button
@@ -150,10 +147,13 @@ export async function fetchPeople() {
            
             document.body.appendChild(delPopup);
             delPopup.classList.add('open');
+            document.body.style.overflow = "hidden";
         });
     }
 
     const handleNewPeople = () => {
+        const maxDate = new Date().toISOString().slice(0,10);
+
         modalInner.innerHTML =    
         `
         <div class="modal_container">
@@ -173,7 +173,7 @@ export async function fetchPeople() {
                 </fieldset>
                 <fieldset>
                     <label for="birthday">Days</label>
-                    <input type="date" id="birthday" name="birthday" required>
+                    <input type="date" id="birthday" max=${maxDate} name="birthday" required>
                 </fieldset>
                 <div class="buttons">
                     <button type="submit" class="submit">Submit</button>
@@ -184,6 +184,7 @@ export async function fetchPeople() {
         </div>
         `;
         modalOuter.classList.add('open');
+        document.body.style.overflow = "hidden";
     }
 
     // Add new person to the list
@@ -217,19 +218,18 @@ export async function fetchPeople() {
         }
     }
 
-    const filterPersonByName = () => {
+    const filterPersonByName = (people) => {
         // Get the value of the input
         const input = filterNameInput.value;
         const inputSearch = input.toLowerCase();
         // Filter the list by the firstname or lastname
         const searchPerson = people.filter(person => person.lastName.toLowerCase().includes(inputSearch) || 
             person.firstName.toLowerCase().includes(inputSearch));
-        const myHTML = displayPeople(searchPerson);
-        tbody.innerHTML = myHTML;
+        return searchPerson;
     }
 
     // Filter by month
-    const filterPersonMonth = e => {
+    const filterPersonMonth = (people) => {
         // Get the value of the select input
         const select = filterMonthBirthday.value;
         const filterPerson = people.filter(person => {
@@ -241,7 +241,13 @@ export async function fetchPeople() {
             // Filter the list by the month of birth
             return getMonthOfBirth.toLowerCase().includes(select.toLowerCase());
         });
-        const myHTML = displayPeople(filterPerson);
+        return filterPerson;
+    }
+
+    const filterNameAndMonth = () => {
+        const filteredByName = filterPersonByName(people);
+        const filtedByNameAndMonth = filterPersonMonth(filteredByName);
+        const myHTML = displayPeople(filtedByNameAndMonth);
         tbody.innerHTML = myHTML;
     }
 
@@ -263,8 +269,8 @@ export async function fetchPeople() {
     //************* EVENT LISTENER **********
     buttonAdd.addEventListener('click', handleNewPeople);
     // resetBtn.addEventListener('click', resetFilters);
-    filterNameInput.addEventListener('keyup', filterPersonByName);
-    filterMonthBirthday.addEventListener('change', filterPersonMonth);
+    filterNameInput.addEventListener('keyup', filterNameAndMonth);
+    filterMonthBirthday.addEventListener('change', filterNameAndMonth);
     tbody.addEventListener('updatedTheList', updateLocalStorage);
     modalInner.addEventListener('submit', addNewPeople);
     modalInner.addEventListener('click', cancelAddNewPeople);

@@ -119,17 +119,15 @@ ul {
 }
 
 .modal_outer{
-    display: grid;
+    display: flex;
     background: rgba(255, 255, 255, 0.8);
     position: fixed;
-    height: 100vh;
-    width: 100vw;
+    width: 100%;
     top: 0;
     left: 0;
-    justify-content: center;
-    align-items: center;
     pointer-events: none;
     opacity: 0;
+    height: 100%;
 }
 
 .modal_outer.open {
@@ -139,12 +137,14 @@ ul {
 
 .modal_inner {
     width: 750px;
-    height: 100vh;
+    /* height: 100vh; */
     border-radius: 5px;
     background: white;
     transform: translateY(-100%);
     transition: transform 0.2s;
-    /* background-position: center; */
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 52px;
 }
 
 .modal_container {
@@ -161,7 +161,7 @@ ul {
     height: 2rem;
     position: absolute;
     top: 0%;
-    left: 90%;
+    left: 85%;
 }
 
 .modal_inner fieldset {
@@ -173,7 +173,7 @@ ul {
 }
 
 .modal_outer.open .modal_inner {
-    transform: translate(0%, 20%);
+    transform: translate(0%, 10%);
 }
 
 fieldset {
@@ -201,6 +201,10 @@ fieldset {
     color: #094067;
     margin: 0;
     padding-top: 20px;
+}
+
+.add_heading {
+    padding-bottom: 26px;
 }
 
 .save,
@@ -317,7 +321,10 @@ img {
 .buttons {
     display: flex;
     flex-direction: row;
-    /* justify-content: space-between; */
+}
+
+.buttons {
+    padding-top: 46px;
 }
 
 .deletebtns {
