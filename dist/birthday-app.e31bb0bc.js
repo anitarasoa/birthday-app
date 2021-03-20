@@ -372,7 +372,7 @@ async function fetchPeople() {
     });
     popup.addEventListener('submit', e => {
       e.preventDefault();
-      findPeople.lastName = popup.lastName.value, findPeople.firstName = popup.firstName.value, findPeople.picture = popup.pictures.value, findPeople.birthday = popup.birthDay.value, displayLists(findPeople);
+      findPeople.lastName = popup.lastName.value, findPeople.firstName = popup.firstName.value, findPeople.birthday = popup.birthDay.value, displayLists(findPeople);
       (0, _utils.destroyPopup)(popup);
 
       _element.tbody.dispatchEvent(new CustomEvent('updatedTheList'));

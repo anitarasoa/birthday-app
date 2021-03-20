@@ -85,7 +85,6 @@ export async function fetchPeople() {
                 
                 findPeople.lastName = popup.lastName.value,
                 findPeople.firstName = popup.firstName.value,
-                findPeople.picture = popup.pictures.value,
                 findPeople.birthday = popup.birthDay.value,
 
                 displayLists(findPeople);
@@ -134,7 +133,7 @@ export async function fetchPeople() {
 
                 window.addEventListener('click', e => {
                     if (e.target.closest('button.close_delete')) {
-                        destroyPopup(delPopup);
+                        destroyPopup(delPopup)
                     }
                 })
     
