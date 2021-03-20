@@ -242,14 +242,12 @@ function displayPeople(people) {
     let myDateDay = myDate.getDate();
     const fullDate = `${myDateDay}${nthDate(myDateDay)} / ${myDateMonth} / ${myDateYear}`;
     const futureAge = today.getFullYear() - myDateYear;
-    var bday = new Date(today.getFullYear(), myDateMonth - 1, myDateDay);
-
-    if (today.getTime() > bday.getTime()) {
-      bday.setFullYear(bday.getFullYear() + 1);
-    }
-
-    var diff = bday.getTime() - today.getTime();
-    var days = Math.floor(diff / (1000 * 60 * 60 * 24)); //Create html for the data and put into dom.
+    const momentYear = today.getFullYear();
+    const birthDayDate = new Date(momentYear, myDateMonth - 1, myDateDay);
+    let oneDay = 1000 * 60 * 60 * 24;
+    const getTheDate = birthDayDate.getTime() - today.getTime();
+    const dayLeft = Math.ceil(getTheDate / oneDay);
+    const birthdayInDate = dayLeft < 0 ? 365 + dayLeft : dayLeft; //Create html for the data and put into dom.
 
     return `
         <li data-id="${person.id}" class="tr_container">
@@ -271,7 +269,7 @@ function displayPeople(people) {
                 </div>
            </div>
             <div class="last_section">
-                <p class="person_birthday_date">${days > 0 ? 'in' + " " + days + " " + 'days' : "Happy birthday"}
+                <p class="person_birthday_date">${birthdayInDate > 1 ? `${birthdayInDate} days` : birthdayInDate < 1 ? "Happy birthday" : `${birthdayInDate} day`}
                 </p>
                 <div>
                     <button class="edit" data-id="${person.id}"> Edit</button>
