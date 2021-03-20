@@ -1,21 +1,17 @@
-function calculateDays(day) {
-    var today = new Date();
-    let myDate = new Date(day.birthday);
-    let myDateMonth = myDate.getMonth();
-    let myDateDay = myDate.getDate();
-    var bday = new Date(today.getFullYear(),myDateMonth-1,myDateDay);
-    if( today.getTime() > bday.getTime()) {
-        bday.setFullYear(bday.getFullYear()+1);
-    }
-    var diff = bday.getTime()-today.getTime();
-    var days = Math.floor(diff/(1000*60*60*24));
-    return days;
-}
-
 export function displayPeople(people) {
     return people
         .sort((a, b) => {
-            return calculateDays(a) - calculateDays(b);
+            function peopleBirthday(month, day) {
+                let today = new Date(),
+                currentYear = today.getFullYear(),
+                next = new Date(currentYear, month - 1, day);
+                today.setHours(0, 0, 0, 0);
+                if (today > next) next.setFullYear(currentYear + 1);
+                return Math.round((next - today) / 8.64e7);
+            }
+            let birthdayA = peopleBirthday(new Date(a.birthday).getMonth()+1,new Date(a.birthday).getDate());
+            let birthdayB = peopleBirthday(new Date(b.birthday).getMonth()+1,new Date(b.birthday).getDate());
+            return birthdayA - birthdayB;
         })
         .map((person) => {
         function nthDate(day) {

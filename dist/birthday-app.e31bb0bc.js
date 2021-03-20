@@ -202,25 +202,20 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.displayPeople = displayPeople;
 
-function calculateDays(day) {
-  var today = new Date();
-  let myDate = new Date(day.birthday);
-  let myDateMonth = myDate.getMonth();
-  let myDateDay = myDate.getDate();
-  var bday = new Date(today.getFullYear(), myDateMonth - 1, myDateDay);
-
-  if (today.getTime() > bday.getTime()) {
-    bday.setFullYear(bday.getFullYear() + 1);
-  }
-
-  var diff = bday.getTime() - today.getTime();
-  var days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  return days;
-}
-
 function displayPeople(people) {
   return people.sort((a, b) => {
-    return calculateDays(a) - calculateDays(b);
+    function peopleBirthday(month, day) {
+      let today = new Date(),
+          currentYear = today.getFullYear(),
+          next = new Date(currentYear, month - 1, day);
+      today.setHours(0, 0, 0, 0);
+      if (today > next) next.setFullYear(currentYear + 1);
+      return Math.round((next - today) / 8.64e7);
+    }
+
+    let birthdayA = peopleBirthday(new Date(a.birthday).getMonth() + 1, new Date(a.birthday).getDate());
+    let birthdayB = peopleBirthday(new Date(b.birthday).getMonth() + 1, new Date(b.birthday).getDate());
+    return birthdayA - birthdayB;
   }).map(person => {
     function nthDate(day) {
       if (day > 3 && day < 21) return "th";
@@ -340,10 +335,6 @@ async function fetchPeople() {
                     <h3 class="edit-heading">Edit <span class="person_to_edit">${findPeople.firstName} ${findPeople.lastName}</span></h3>
                     <div class="edit_fieldset">
                         <fieldset>
-                            <label for="pictures">Picture</label>
-                            <input type="url" id="pictures" name="pictures" value="${findPeople.picture}" required>
-                        </fieldset>
-                        <fieldset>
                             <label for="lastName">Last name</label>
                             <input type="text" id="lastName" name="lastName" value="${findPeople.lastName}" required>
                         </fieldset>
@@ -410,6 +401,7 @@ async function fetchPeople() {
                         <button type="button" class="yes">yes</button>
                         <button type="button" class="cancelDelete cancel">Cancel</button>
                     </div>
+                    <button class="close_delete">X</button>
                </div>
             </div>
             `);
@@ -423,6 +415,11 @@ async function fetchPeople() {
 
         window.addEventListener('keydown', e => {
           if (e.key === 'Escape') {
+            (0, _utils.destroyPopup)(delPopup);
+          }
+        });
+        window.addEventListener('click', e => {
+          if (e.target.closest('button.close_delete')) {
             (0, _utils.destroyPopup)(delPopup);
           }
         });
@@ -614,7 +611,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57476" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60662" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

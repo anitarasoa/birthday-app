@@ -13,7 +13,7 @@ body {
 
 body,
 ul,
-p {
+p{
     margin: 0;
     padding: 0;
 }
@@ -22,10 +22,13 @@ h1 {
     font-family: 'Rubik';
     font-style: normal;
     font-weight: bold;
-    font-size: 64px;
-    line-height: 76px;
+    font-size: 48px;
+    line-height: 64px;
     color: #094067;
+    margin-top: 42px;
+    margin-bottom: 0;
 }
+
 
 label,
 .month-label,
@@ -137,7 +140,6 @@ ul {
 
 .modal_inner {
     width: 750px;
-    /* height: 100vh; */
     border-radius: 5px;
     background: white;
     transform: translateY(-100%);
@@ -200,7 +202,7 @@ fieldset {
     line-height: 43px;
     color: #094067;
     margin: 0;
-    padding-top: 20px;
+    padding-top: 35px;
 }
 
 .add_heading {
@@ -362,6 +364,24 @@ ul li + li {
     padding-top: 16px;
 }
 
+.delete_container_container,
+.container_container {
+    background-color: #FFFFFF;
+    margin-left: 22px;
+    margin-right: 22px;
+    border-radius: 5px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.delete_container,
+.edit_container {
+    width: 290px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.close_delete,
 .close_edit {
     background-image: url('/close-edit.1cde4bff.svg');
     background-size: 2rem;
@@ -369,35 +389,18 @@ ul li + li {
     height: 2rem;
     position: absolute;
     top: 20%;
-    left: 90%;
-}
-
-.container_container {
-    background-color: #FFFFFF;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.delete_container_container {
-    background-color: #FFFFFF;
-    width: 100vw;
-    height: 50vh;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    margin-top: 32px;
-}
-
-.delete_container {
-    grid-column: 2 / 5;
-}
-
-.edit_container {
-    border-radius: 5px;
-    grid-column: 2 / 4;
+    left: 80%;
+    margin: 0;
+    padding: 0;
 }
 
 @media (min-width: 780px) {
+    h1 {
+        font-size: 64px;
+        line-height: 76px;
+        margin-top: 43px;
+        margin-bottom: 42px;
+    }    
     .add_heading,
     .edit-heading,
     .delete_heading {
@@ -408,7 +411,7 @@ ul li + li {
         line-height: 57px;
         color: #094067;
         margin: 0;
-        padding-top: 20px;
+        padding-top: 35px;
     }
     .container {
         max-width: 779px;
@@ -436,6 +439,33 @@ ul li + li {
     }
     .month-label {
         padding-top: unset;
+    }
+    .delete_container_container,
+    .container_container {
+        width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 26px;
+    }
+    .edit-heading {
+        padding-bottom: 26px;
+    }
+    .edit_container {
+        width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .delete_container {
+        width: 650px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .close_edit {
+        left: 75%;
+    }
+    .delete_container {
+        padding-top: 50px;
+        padding-bottom: 50px;
     }
 }
 

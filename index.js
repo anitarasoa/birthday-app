@@ -42,10 +42,6 @@ export async function fetchPeople() {
                     <h3 class="edit-heading">Edit <span class="person_to_edit">${findPeople.firstName} ${findPeople.lastName}</span></h3>
                     <div class="edit_fieldset">
                         <fieldset>
-                            <label for="pictures">Picture</label>
-                            <input type="url" id="pictures" name="pictures" value="${findPeople.picture}" required>
-                        </fieldset>
-                        <fieldset>
                             <label for="lastName">Last name</label>
                             <input type="text" id="lastName" name="lastName" value="${findPeople.lastName}" required>
                         </fieldset>
@@ -119,6 +115,7 @@ export async function fetchPeople() {
                         <button type="button" class="yes">yes</button>
                         <button type="button" class="cancelDelete cancel">Cancel</button>
                     </div>
+                    <button class="close_delete">X</button>
                </div>
             </div>
             `);
@@ -133,6 +130,12 @@ export async function fetchPeople() {
                 window.addEventListener('keydown', e => {
                     if (e.key === 'Escape') {
                         destroyPopup(delPopup);                }
+                })
+
+                window.addEventListener('click', e => {
+                    if (e.target.closest('button.close_delete')) {
+                        destroyPopup(delPopup);
+                    }
                 })
     
                 const yesBtn = e.target.closest('button.yes');
