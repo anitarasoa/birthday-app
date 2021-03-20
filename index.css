@@ -202,7 +202,6 @@ fieldset {
     line-height: 43px;
     color: #094067;
     margin: 0;
-    padding-top: 35px;
 }
 
 .add_heading {
@@ -300,6 +299,8 @@ button {
 
 img {
 	border-radius: 5px;
+    width: 128px;
+    height: 128px;
 }
 
 .cancel {
@@ -326,7 +327,7 @@ img {
 }
 
 .buttons {
-    padding-top: 46px;
+    padding-top: 25px;
 }
 
 .deletebtns {
@@ -411,7 +412,9 @@ ul li + li {
         line-height: 57px;
         color: #094067;
         margin: 0;
-        padding-top: 35px;
+    }
+    .add_heading {
+        padding-top: 25px;
     }
     .container {
         max-width: 779px;
