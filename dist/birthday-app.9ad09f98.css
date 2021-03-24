@@ -158,11 +158,12 @@ ul {
 
 .close_modal {
     background-image: url('/close-edit.1cde4bff.svg');
-    background-size: 2rem;
+    background-size: 1.5rem;
+    background-repeat: no-repeat;
     width: 2rem;
     height: 2rem;
     position: absolute;
-    top: 0%;
+    top: 2%;
     left: 85%;
 }
 
@@ -206,6 +207,7 @@ fieldset {
 
 .add_heading {
     padding-bottom: 26px;
+    padding-top: 26px;
 }
 
 .save,
@@ -385,7 +387,8 @@ ul li + li {
 .close_delete,
 .close_edit {
     background-image: url('/close-edit.1cde4bff.svg');
-    background-size: 2rem;
+    background-size: 1.5rem;
+    background-repeat: no-repeat;
     width: 2rem;
     height: 2rem;
     position: absolute;
