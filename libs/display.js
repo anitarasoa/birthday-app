@@ -59,7 +59,7 @@ export function displayPeople(people) {
                 </div>
            </div>
             <div class="last_section">
-                <p class="person_birthday_date">${birthdayInDate > 1 
+                <p class="person_birthday_date">${birthdayInDate > 1
                             ? `in ${birthdayInDate} days` 
                             : birthdayInDate < 1 
                             ? "Happy birthday" 

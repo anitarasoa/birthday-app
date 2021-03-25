@@ -15,7 +15,7 @@
 
 In this project our goal is to display lists of people by fetching data from an url with people's birth date and their avatar. And calculating their birthday in this year whether it is already gone or still about to come. Then you can the people that has the nearest birthday date.
 
-![My birthday app](./assets/birthday-app.webp)
+
 
 You can see my demo by clicking this link with the username [Betsimisaraka](https://github.com/Betsimisaraka/birthday-app)
 
@@ -79,6 +79,10 @@ $ npm install
 # Run the app
 $ npm start
 ```
+
+## Figma
+
+Here is the link of the design in [Figma](https://www.figma.com/file/bb1Mie5R3mUhR77PtGG8bJ/Birthday-App?node-id=0%3A1)
 
 ## Contact
 
