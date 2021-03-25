@@ -245,7 +245,7 @@ img {
 
 .close_modal {
     background-image: url('./assets/close-edit.svg');
-    background-size: 1.5rem;
+    background-size: 2rem;
     background-repeat: no-repeat;
     width: 2rem;
     height: 2rem;
@@ -343,13 +343,16 @@ img {
     flex-direction: column;
     border: none;
     padding: 0;
-    margin-block-end: 5px;
     margin-left: 0;
     margin-right: 0;
 }
 
+.popup.open fieldset + fieldset {
+    margin-top: 11px;
+}
+
 label {
-    padding-bottom: 10px;
+    padding-bottom: 8px;
 }
 
 .cancel {
@@ -374,7 +377,7 @@ label {
 }
 
 .buttons {
-    padding-top: 25px;
+    padding-top: 49px;
 }
 
 .deletebtns {
@@ -387,8 +390,8 @@ label {
     margin-left: 22px;
     margin-right: 22px;
     border-radius: 5px;
-    padding-top: 50px;
-    padding-bottom: 96px;
+    padding-top: 80px;
+    padding-bottom: 100px;
 }
 
 .delete_container,
@@ -450,7 +453,7 @@ label {
         margin: 0;
     }
     .add_heading {
-        padding-top: 25px;
+        padding-top: 45px;
     }
     .container {
         max-width: 779px;
@@ -483,10 +486,14 @@ label {
     }
     .delete_container_container,
     .container_container {
-        width: 900px;
+        width: 1000px;
+        height: 751px;
         margin-left: auto;
         margin-right: auto;
-        padding-top: 62px;
+        padding-top: 100px;
+    }
+    .delete_container_container {
+        height: unset;
     }
     .edit-heading {
         padding-bottom: 26px;
@@ -503,12 +510,9 @@ label {
     }
     .close_delete,
     .close_edit {
-        left: 88%;
+        left: 80%;
     }
-    .delete_container {
-        padding-top: 50px;
-        padding-bottom: 50px;
-    }
+    
     .close_modal {
         left: 95%;
     }
