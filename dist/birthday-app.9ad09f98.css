@@ -75,6 +75,13 @@ label,
     padding-bottom: 15px;
 }
 
+.month {
+    -webkit-appearance: none;
+    background-image: url('/select-dropdown.12d1d4f5.svg');
+    background-repeat: no-repeat;
+    background-position: 92% 50%;
+}
+
 .btn-add,
 .reset_filter {
     font-family: 'Rubik';
@@ -394,7 +401,7 @@ label {
 .close_delete,
 .close_edit {
     background-image: url('/close-edit.1cde4bff.svg');
-    background-size: 1.5rem;
+    background-size: 2rem;
     background-repeat: no-repeat;
     width: 2rem;
     height: 2rem;
