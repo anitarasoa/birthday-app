@@ -13,7 +13,7 @@
 </div>
 
 
-In this project my goal is to display lists of people by fetching data from an API with people's birth date and their avatar. And calculating their next birthday from the current day. Then I sorted the people by the one who has the nearest birthday date.
+In this project my goal is to display lists of people by fetching data from an API with people's birth date and their avatar. And calculating their next birthday from the current day. Then I sorted the people by the one who has the nearest birthday.
 
 ## Overview
 

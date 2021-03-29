@@ -426,7 +426,10 @@ label {
         line-height: 76px;
         margin-top: 63px;
         margin-bottom: 42px;
-    }   
+    }
+    .month {
+        width: 282px;
+    }
     .person_birthday_date {
         padding-top: unset;
         padding-bottom: 36px;
