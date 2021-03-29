@@ -106,8 +106,8 @@ label,
     font-family: 'Rubik';
     font-style: normal;
     font-weight: 500;
-    font-size: 24px;
-    line-height: 34px;
+    font-size: 36px;
+    line-height: 43px;
     color: #000000;
 }
 
@@ -126,12 +126,13 @@ ul {
 
 ul li {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     background: #FFFFFE;
     border-radius: 5px;
-    height: 139px;
+    padding-top: 22px;
+    padding-bottom: 23px;
 }
 
 ul li + li {
@@ -142,21 +143,17 @@ img {
 	border-radius: 5px;
     width: 92px;
     height: 94px;
-    margin-left: 22px;
 }
 
 .first_section {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
 .first_section__content {
-    padding-left: 22px;
-}
-
-.last_section {
-    padding-right: 23px;
+    padding-top: 22px;
 }
 
 .person_fulldate,
@@ -165,16 +162,21 @@ img {
     font-family: 'Rubik';
     font-style: normal;
     font-weight: 500;
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 24px;
+    line-height: 28px;
     color: #5F6C7B;
+}
+
+.person_birthday_date {
+    padding-bottom: 22px;
+    padding-top: 22px;
 }
 
 .delete,
 .edit {
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 1.5rem;
+    background-size: 2rem;
     text-indent: -9999px;
     border: none;
     width: 30px;
@@ -186,6 +188,7 @@ img {
 
 .edit {
     background-image: url(/edit.4c7be04f.svg);
+    margin-right: 19px;
 }
 
 .delete {
@@ -222,7 +225,6 @@ img {
 
 .modal_container {
     width: 400px;
-    /* height: 500px; */
     margin-left: auto;
     margin-right: auto;
 }
@@ -418,35 +420,19 @@ label {
     padding-left: 22px;
 }
 
-@media (min-width: 779px) {
+@media (min-width: 778px) {
     h1 {
         font-size: 64px;
         line-height: 76px;
         margin-top: 63px;
         margin-bottom: 42px;
     }   
-    .person_name {
-        font-size: 36px;
-        line-height: 43px;
-    } 
-    .person_fulldate,
-    .person_birthday_date,
-    .person_birthday {
-        font-size: 24px;
-        line-height: 28px;
-    }
     .person_birthday_date {
+        padding-top: unset;
         padding-bottom: 36px;
     }
     img {
         margin-left: 43px;
-    }
-    .delete,
-    .edit {
-        background-size: 2rem;
-    }
-    .edit {
-        margin-right: 19px;
     }
     .add_heading,
     .edit-heading,
@@ -473,20 +459,24 @@ label {
         flex-direction: row;
         align-items: center;
         flex-wrap: wrap;
+        padding-top: unset;
+        padding-bottom: unset;
     }
     .first_section {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center; 
-        flex-wrap: wrap;  
-      }
-      .first_section__content {
+        flex-wrap: wrap; 
+    }
+    .first_section__content {
+        padding-top: unset;
         padding-left: 39px;
     }
     .last_section {
         text-align: end;
         padding-top: unset;
+        padding-right: 23px;
     }
     .month-label {
         padding-top: unset;
@@ -532,7 +522,6 @@ label {
     }
     .btn-add {
         width: 158px;
-        /* align-self: flex-end; */
     }
 }
 
