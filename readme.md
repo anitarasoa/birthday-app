@@ -13,7 +13,7 @@
 </div>
 
 
-In this project my goal is to display lists of people by fetching data from an API with people's birth date and their avatar. And calculating their next birthday from the current day. Then I sorted the people by the one who has the nearest birthday.
+In this project my goal is to display lists of people by fetching data from an API with people's birthday and their avatar.
 
 ## Overview
 
@@ -33,7 +33,7 @@ The functionality of this project are:
 - I can delete a person from the list.
 - I can edit a person's information.
 - I can add a new person to the lists.
-- I can filter the list by the people's firstname and lastname and by the month of the date of birth.
+- I can filter the list by the people's firstname, lastname and by the month of the date of birth.
 - I can reset the select input by selecting the first option.
 
 ## How to use
