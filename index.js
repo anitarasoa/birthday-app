@@ -42,15 +42,15 @@ export async function fetchPeople() {
                     <h3 class="edit-heading">Edit <span class="person_to_edit">${findPeople.firstName} ${findPeople.lastName}</span></h3>
                     <div class="edit_fieldset">
                         <fieldset>
-                            <label for="lastName">Last name</label>
-                            <input type="text" id="lastName" name="lastName" value="${findPeople.lastName}" required>
-                        </fieldset>
-                        <fieldset>
-                            <label for="firstName">First name</label>
+                            <label for="firstName">Firstname</label>
                             <input type="text" id="firstName" name="firstName" value="${findPeople.firstName}" required>
                         </fieldset>
                         <fieldset>
-                            <label for="birthDay">Days</label>
+                            <label for="lastName">Lastname</label>
+                            <input type="text" id="lastName" name="lastName" value="${findPeople.lastName}" required>
+                        </fieldset>
+                        <fieldset>
+                            <label for="birthDay">Birthday</label>
                             <input type="date" id="birthDay" max=${maxDate} value="${fullDate}" name="birthDay" required>
                         </fieldset>
                     </div>
@@ -166,15 +166,15 @@ export async function fetchPeople() {
                     <input type="url" id="picture" name="picture" required>
                 </fieldset>
                 <fieldset>
-                    <label for="lastname">Last name</label>
-                    <input type="text" id="lastname" name="lastname" required>
-                </fieldset>
-                <fieldset>
-                    <label for="firstname">First name</label>
+                    <label for="firstname">Firstname</label>
                     <input type="text" id="firstname" name="firstname" required>
                 </fieldset>
                 <fieldset>
-                    <label for="birthday">Days</label>
+                    <label for="lastname">Lastname</label>
+                    <input type="text" id="lastname" name="lastname" required>
+                </fieldset>
+                <fieldset>
+                    <label for="birthday">Birthday</label>
                     <input type="date" id="birthday" max=${maxDate} name="birthday" required>
                 </fieldset>
                 <div class="buttons">
