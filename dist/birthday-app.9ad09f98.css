@@ -1,534 +1,551 @@
 html {
-    font-family: 'Rubik', sans-serif;
+  font-family: 'Rubik', sans-serif;
 }
 
 body {
-    background-color: #D8EEFE;
+  background-color: #d8eefe;
 }
 
 .container {
-    max-width: 779px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 15px;
-    padding-right: 15px;
+  max-width: 779px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 body,
 ul,
-p{
-    margin: 0;
-    padding: 0;
+p {
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
-    font-family: 'Rubik';
-    font-style: normal;
-    font-weight: bold;
-    font-size: 48px;
-    line-height: 64px;
-    color: #094067;
-    margin-top: 32px;
-    margin-bottom: 22px;
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 48px;
+  line-height: 64px;
+  color: #094067;
+  margin-top: 32px;
+  margin-bottom: 22px;
 }
 
 fieldset {
-    display: flex;
-    flex-direction: column;
-    border: transparent;
+  display: flex;
+  flex-direction: column;
+  border: transparent;
 }
 
 button {
-	background: none;
-	border: none;
-	cursor: pointer;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 label,
 .month-label,
 .name-label {
-    font-family: 'Rubik';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 21px;
-    color: #094067;
-    padding-bottom: 13px;
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #094067;
+  padding-bottom: 13px;
 }
 
 .month-label {
-    padding-top: 32px;
+  padding-top: 32px;
 }
 
 .search,
 .month {
-    background: #FFFFFE;
-    border-radius: 5px;
-    border: 0;
-    width: 264px;
-    height: 50px;
+  background: #fffffe;
+  border-radius: 5px;
+  border: 0;
+  width: 264px;
+  height: 50px;
 }
 
 .month,
-.search::placeholder {
-    font-family: 'Rubik';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 21px;
-    color: #5F6C7B;
-    padding-left: 20px;
+.search {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #5f6c7b;
+  padding-left: 20px;
 }
 
 .month {
-    -webkit-appearance: none;
-    background-image: url('/select-dropdown.12d1d4f5.svg');
-    background-repeat: no-repeat;
-    background-position: 92% 50%;
+  -webkit-appearance: none;
+  background-image: url('/select-dropdown.12d1d4f5.svg');
+  background-repeat: no-repeat;
+  background-position: 92% 50%;
 }
 
 .form_filter {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    flex-wrap: wrap;
-    margin-bottom: 47px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+  margin-bottom: 47px;
 }
 
 .filter,
 .reset_field {
-    padding: 0;
-    margin: 0;
-    align-self: flex-end;
+  padding: 0;
+  margin: 0;
+  align-self: flex-end;
 }
 
 .person_name {
-    font-family: 'Rubik';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 36px;
-    line-height: 43px;
-    color: #000000;
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 43px;
+  color: #000000;
 }
 
 .days {
-    color: #EF4565;
+  color: #ef4565;
 }
 
 .person_to_delete {
-    color: #EF4565;
+  color: #ef4565;
 }
 
 ul {
-    list-style: none;
-    padding-bottom: 63px;
+  list-style: none;
+  padding-bottom: 63px;
 }
 
 ul li {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    background: #FFFFFE;
-    border-radius: 5px;
-    padding-top: 22px;
-    padding-bottom: 23px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background: #fffffe;
+  border-radius: 5px;
+  padding-top: 22px;
+  padding-bottom: 23px;
 }
 
 ul li + li {
-    margin-top: 31px;
+  margin-top: 31px;
 }
 
 img {
-	border-radius: 5px;
-    width: 92px;
-    height: 94px;
+  border-radius: 5px;
+  width: 92px;
+  height: 94px;
 }
 
 .first_section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .first_section__content {
-    padding-top: 22px;
+  padding-top: 22px;
 }
 
 .person_fulldate,
 .person_birthday_date,
 .person_birthday {
-    font-family: 'Rubik';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 28px;
-    color: #5F6C7B;
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+  color: #5f6c7b;
 }
 
 .person_birthday_date {
-    padding-bottom: 22px;
-    padding-top: 22px;
+  padding-bottom: 22px;
+  padding-top: 22px;
 }
 
 .delete,
 .edit {
-    background-repeat: no-repeat;
-    background-position: center;
-    text-indent: -9999px;
-    border: none;
-    width: 30px;
-    height: 30px;
-    background-color: transparent;
-    border-radius: 5px;
-    padding: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -9999px;
+  border: none;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 0;
 }
 
 .edit {
-    background-image: url(/edit.4c7be04f.svg);
-    margin-right: 19px;
+  background-image: url(/edit.4c7be04f.svg);
+  margin-right: 19px;
 }
 
 .delete {
-    background-image: url(/delete.3b390d6e.svg);
+  background-image: url(/delete.3b390d6e.svg);
 }
 
-.modal_outer{
-    display: flex;
-    background: rgba(255, 255, 255, 0.8);
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    opacity: 0;
-    height: 100%;
+.modal_outer {
+  display: flex;
+  background: rgba(255, 255, 255, 0.8);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  opacity: 0;
+  height: 100%;
 }
 
 .modal_outer.open {
-    opacity: 1;
-    pointer-events: all;
+  opacity: 1;
+  pointer-events: all;
 }
 
 .modal_inner {
-    width: 1000px;
-    height: 751px;
-    border-radius: 5px;
-    background: white;
-    transform: translateY(-100%);
-    transition: transform 0.2s;
-    margin-left: auto;
-    margin-right: auto;
+  width: 1000px;
+  height: 751px;
+  border-radius: 5px;
+  background: white;
+  transform: translateY(-100%);
+  transition: transform 0.2s;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .modal_container {
-    width: 400px;
-    margin-left: auto;
-    margin-right: auto;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.close_edit, .close_delete, .close_modal {
-    background-image: url('/close-edit.1cde4bff.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 58px;
-    height: 58px;
-    position: absolute;
-    left: 80%;
-    margin: 0;
-    padding: 0;
+.close_edit,
+.close_delete,
+.close_modal {
+  background-image: url('/close-edit.1cde4bff.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 58px;
+  height: 58px;
+  position: absolute;
+  left: 80%;
+  margin: 0;
+  padding: 0;
 }
 
 .close_delete,
 .close_edit {
-    top: 5%;
+  top: 5%;
 }
 
 .close_modal {
-    top: 0%;
+  top: 0%;
 }
 
 .modal_inner fieldset {
-    margin: 0;
-    padding-top: 0;
-    padding-bottom: 8px;
-    padding-left: 0;
-    padding-right: 0;
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 8px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .modal_inner fieldset:last-of-type {
-    padding-bottom: unset;
+  padding-bottom: unset;
 }
 
 .modal_outer.open .modal_inner {
-    transform: translate(0%, 0%);
+  transform: translate(0%, 0%);
 }
 
 .form_submit {
-    margin-left: 15px;
+  margin-left: 15px;
 }
 
-.modal_outer.open fieldset input, .popup.open fieldset input {
-    height: 40px;
-    width: 264px;
-    border: none;
-    background: #D8EEFE;
-    border-radius: 5px;
+.modal_outer.open fieldset input,
+.popup.open fieldset input {
+  height: 40px;
+  width: 264px;
+  border: none;
+  background: #d8eefe;
+  border-radius: 5px;
 }
 
 .add_heading,
 .edit-heading,
 .delete_heading {
-    font-family: 'Rubik';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 36px;
-    line-height: 43px;
-    color: #094067;
-    margin: 0;
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 43px;
+  color: #094067;
+  margin: 0;
 }
 
 .add_heading {
-    padding-bottom: 26px;
-    padding-top: 62px;
+  padding-bottom: 26px;
+  padding-top: 62px;
 }
 
 .edit-heading {
-    padding-bottom: 26px;
-    padding-top: 121px;
+  padding-bottom: 26px;
+  padding-top: 121px;
 }
 
-.btn-add, .cancel, .save, .submit, .yes {
-    font-family: 'Rubik';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 21px;
-    height: 50px;
-    border-radius: 5px;
-    padding: 0;
+.btn-add,
+.cancel,
+.save,
+.submit,
+.yes {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  height: 50px;
+  border-radius: 5px;
+  padding: 0;
 }
 
-.cancel, .save, .submit, .yes {
-    width: 122px;
+.cancel,
+.save,
+.submit,
+.yes {
+  width: 122px;
 }
 
-.btn-add, .save, .yes, .submit {
-    color: #FFFFFE;
-    background: #EF4565;
-    border: none;
+.btn-add,
+.save,
+.yes,
+.submit {
+  color: #fffffe;
+  background: #ef4565;
+  border: none;
 }
 
 .btn-add {
-    width: 264px;
-    margin-top: 32px;
-    align-self: flex-end;
+  width: 264px;
+  margin-top: 32px;
+  align-self: flex-end;
 }
 
 .cancel {
-    color: #5F6C7B;
-    background: #FFFFFF;
-    border: 2px solid #5F6C7B;
-    box-sizing: border-box;
-    margin-left: 20px;
+  color: #5f6c7b;
+  background: #ffffff;
+  border: 2px solid #5f6c7b;
+  box-sizing: border-box;
+  margin-left: 20px;
 }
 
 .delPopup,
 .popup {
-	background: rgba(255, 255, 255, 0.8);
-    border-radius: 5px;
-	position: fixed;
-	height: 100vh;
-	width: 100vw;
-	top: 0;
-	transform: translate(0%, -100%);
-	--opacity: 0;
-    opacity: var(--opacity);
-    padding-top: 120px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  transform: translate(0%, -100%);
+  --opacity: 0;
+  opacity: var(--opacity);
+  padding-top: 120px;
 }
 
 .delPopup h3,
 .delPopup p {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .delPopup.open,
 .popup.open {
-	--opacity: 1;
-    pointer-events: all;
-    transform: translate(0%, -17%);
+  --opacity: 1;
+  pointer-events: all;
+  transform: translate(0%, -17%);
 }
 
 .delPopup.open {
-    transform: translate(0%, -8%);
+  transform: translate(0%, -8%);
 }
 
 .popup.open fieldset {
-	--scale: 2;
-	display: flex;
-    flex-direction: column;
-    border: none;
-    padding: 0;
-    margin-left: 0;
-    margin-right: 0;
+  --scale: 2;
+  display: flex;
+  flex-direction: column;
+  border: none;
+  padding: 0;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .popup.open fieldset + fieldset {
-    margin-top: 11px;
+  margin-top: 11px;
 }
 
 label {
-    padding-bottom: 8px;
+  padding-bottom: 8px;
 }
 
 .deletebtns,
 .buttons {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .buttons {
-    padding-top: 49px;
+  padding-top: 49px;
 }
 
 .deletebtns {
-    padding-top: 2rem;
+  padding-top: 2rem;
 }
 
 .delete_container_container,
 .container_container {
-    background-color: #FFFFFF;
-    margin-left: 15px;
-    margin-right: 15px;
-    border-radius: 5px;
-    position: relative;
+  background-color: #ffffff;
+  margin-left: 15px;
+  margin-right: 15px;
+  border-radius: 5px;
+  position: relative;
 }
 
 .container_container {
-    height: 751px;
+  height: 751px;
 }
 
 .delete_container_container {
-    padding-top: 121px;
-    padding-bottom: 121px;
+  padding-top: 121px;
+  padding-bottom: 121px;
 }
 
 .delete_container,
 .edit_container {
-    width: 290px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 22px;
+  width: 290px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 22px;
 }
 
 @media (min-width: 778px) {
-    h1 {
-        font-size: 64px;
-        line-height: 76px;
-        margin-top: 63px;
-        margin-bottom: 42px;
-    }
-    .month {
-        width: 282px;
-    }
-    .person_birthday_date {
-        padding-top: unset;
-        padding-bottom: 36px;
-    }
-    img {
-        margin-left: 43px;
-    }
-    .add_heading,
-    .edit-heading,
-    .delete_heading {
-        font-family: 'Rubik';
-        font-style: normal;
-        font-weight: 500;
-        font-size: 48px;
-        line-height: 57px;
-        color: #094067;
-        margin: 0;
-    }
-    .add_heading {
-        padding-top: 45px;
-    }
-    .container {
-        max-width: 779px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    ul li {
-        width: 779px;
-        height: 139px;
-        flex-direction: row;
-        align-items: center;
-        flex-wrap: wrap;
-        padding-top: unset;
-        padding-bottom: unset;
-    }
-    .first_section {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center; 
-        flex-wrap: wrap; 
-    }
-    .first_section__content {
-        padding-top: unset;
-        padding-left: 39px;
-    }
-    .last_section {
-        text-align: end;
-        padding-top: unset;
-        padding-right: 23px;
-    }
-    .month-label {
-        padding-top: unset;
-    }
-    .delete_container_container,
-    .container_container {
-        max-width: 1000px;
-        height: 751px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .delete_container_container {
-        height: unset;
-        padding-top: 121px;
-        padding-bottom: 189px;
-    }
-    .edit_container {
-        width: 500px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .delete_container {
-        width: 650px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .close_delete,
-    .close_edit {
-        left: 90%;
-    }
-    
-    .close_modal {
-        left: 91%;
-    }
-    .modal_outer.open fieldset input, .popup.open fieldset input {
-        height: 50px;
-    }
-    .form_submit {
-        margin-left: unset;
-    }
-    .cancel, .save, .submit, .yes {
-        width: 158px;
-    }
-    .btn-add {
-        width: 158px;
-    }
+  h1 {
+    font-size: 64px;
+    line-height: 76px;
+    margin-top: 63px;
+    margin-bottom: 42px;
+  }
+  .month {
+    width: 282px;
+  }
+  .person_birthday_date {
+    padding-top: unset;
+    padding-bottom: 36px;
+  }
+  img {
+    margin-left: 43px;
+  }
+  .add_heading,
+  .edit-heading,
+  .delete_heading {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 57px;
+    color: #094067;
+    margin: 0;
+  }
+  .add_heading {
+    padding-top: 45px;
+  }
+  .container {
+    max-width: 779px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  ul li {
+    width: 779px;
+    height: 139px;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: unset;
+    padding-bottom: unset;
+  }
+  .first_section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .first_section__content {
+    padding-top: unset;
+    padding-left: 39px;
+  }
+  .last_section {
+    text-align: end;
+    padding-top: unset;
+    padding-right: 23px;
+  }
+  .month-label {
+    padding-top: unset;
+  }
+  .delete_container_container,
+  .container_container {
+    max-width: 1000px;
+    height: 751px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .delete_container_container {
+    height: unset;
+    padding-top: 121px;
+    padding-bottom: 189px;
+  }
+  .edit_container {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .delete_container {
+    width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .close_delete,
+  .close_edit {
+    left: 90%;
+  }
+
+  .close_modal {
+    left: 91%;
+  }
+  .modal_outer.open fieldset input,
+  .popup.open fieldset input {
+    height: 50px;
+  }
+  .form_submit {
+    margin-left: unset;
+  }
+  .cancel,
+  .save,
+  .submit,
+  .yes {
+    width: 158px;
+  }
+  .btn-add {
+    width: 158px;
+  }
 }
 
 
