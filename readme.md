@@ -3,15 +3,14 @@
 <div align="center">
   <h3>
     <a href="https://github.com/Betsimisaraka/birthday-app">
-      Demo
+      Source
     </a>
     <span> | </span>
     <a href="https://birthday-app-anita.netlify.app/">
-      Solution
+      Demo
     </a>
   </h3>
 </div>
-
 
 In this project my goal is to display lists of people by fetching data from an API with people's birthday and their avatar.
 
@@ -21,9 +20,9 @@ In this project my goal is to display lists of people by fetching data from an A
 
 ### Build with
 
--   [Vanilla Javascript](https://reactjs.org/)
--   [Html](https://html.org/)
--   [Css](https://css.org)
+- [Vanilla Javascript](https://reactjs.org/)
+- [Html](https://html.org/)
+- [Css](https://css.org)
 
 ## Functionality
 
@@ -38,7 +37,7 @@ The functionality of this project are:
 
 ## How to use
 
-To clone and run this application, you'll need [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) and [parcel bundler](https://parceljs.org/getting_started.html) installed on your computer. Or you can run this with a live server. From your command line: 
+To clone and run this application, you'll need [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) and [parcel bundler](https://parceljs.org/getting_started.html) installed on your computer. Or you can run this with a live server. From your command line:
 
 ```bash
 # Clone this repository
