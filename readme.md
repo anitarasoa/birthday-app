@@ -20,9 +20,9 @@ In this project my goal is to display lists of people by fetching data from an A
 
 ### Build with
 
-- [Vanilla Javascript](https://reactjs.org/)
-- [Html](https://html.org/)
-- [Css](https://css.org)
+- [Vanilla JavaScript](https://reactjs.org/)
+- [HTML](https://html.org/)
+- [CSS](https://css.org)
 
 ## Functionality
 
@@ -52,7 +52,7 @@ $ npm start
 
 ## Figma
 
-Here is the link of the design in [Figma](https://www.figma.com/file/bb1Mie5R3mUhR77PtGG8bJ/Birthday-App?node-id=0%3A1)
+Here is the link of the design in [Figma](https://www.figma.com/file/bb1Mie5R3mUhR77PtGG8bJ/Birthday-App?node-id=0%3A1).
 
 ## Contact
 
